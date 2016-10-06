@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>biz.dfch.CS.Testing</id>
+        <version>1.0.0</version>
+        <title>biz.dfch.CS.Testing</title>
+        <authors>d-fens GmbH</authors>
+        <owners>d-fens GmbH</owners>
+		<licenseUrl>https://github.com/dfch/biz.dfch.CS.Testing/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/dfch/biz.dfch.CS.Testing</projectUrl>
+        <iconUrl>https://avatars1.githubusercontent.com/u/8310404?v=3&amp;s=200</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>biz.dfch.CS.Testing
+========================
+
+Collection of utility classes that provide functionality for testing
+		</description>
+        <summary>Collection of utility classes</summary>
+        <releaseNotes>20161006
+* initial release
+</releaseNotes>
+        <copyright>Copyright © 2014 - 2016 d-fens GmbH</copyright>
+        <tags>dfch utilities C#</tags>
+        <dependencies>
+        </dependencies>
+    </metadata>
+	<files>
+		<file src="biz.dfch.CS.Testing\bin\Release\biz.dfch.CS.Testing.dll" target="lib\" />
+		<file src="biz.dfch.CS.Testing\bin\Release\CodeContracts\biz.dfch.CS.Testing.Contracts.dll" target="lib\CodeContracts" />
+	</files>
+</package>
