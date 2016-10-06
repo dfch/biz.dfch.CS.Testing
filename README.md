@@ -1,2 +1,4 @@
 # biz.dfch.CS.Testing
-Module with 
+
+C# utilities for testing
+
