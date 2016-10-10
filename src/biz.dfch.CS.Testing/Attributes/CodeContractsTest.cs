@@ -20,7 +20,7 @@ namespace biz.dfch.CS.Testing.Attributes
 {
     // this class is used as an example to test CodeContract with code rewriting
     // it must be in an assembly other than where the test runs
-    internal class CodeContractsTest
+    public class CodeContractsTest
     {
         public int CallingMeWithTrueReturns42ThrowsContractExceptionOtherwise(bool itMustBeTrue)
         {
