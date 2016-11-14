@@ -124,15 +124,15 @@ namespace biz.dfch.CS.Testing.PowerShell
             }
         }
 
-        public static void IsAliasDefined(Type implementingType, string expectedAlias)
+        public static void HasAlias(Type implementingType, string expectedAlias)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(!string.IsNullOrWhiteSpace(expectedAlias));
 
-            IsAliasDefined(implementingType, expectedAlias, null);
+            HasAlias(implementingType, expectedAlias, null);
         }
 
-        public static void IsAliasDefined(Type implementingType, string expectedAlias, string message)
+        public static void HasAlias(Type implementingType, string expectedAlias, string message)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(!string.IsNullOrWhiteSpace(expectedAlias));
@@ -173,39 +173,39 @@ namespace biz.dfch.CS.Testing.PowerShell
             throw new AssertFailedException(aliasNotDefinedMessage.ToString());
         }
 
-        public static void IsOutputType(Type implementingType, Type expectedOutputType)
+        public static void HasOutputType(Type implementingType, Type expectedOutputType)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(null != expectedOutputType);
 
-            IsOutputType(implementingType, expectedOutputType.FullName, ParameterAttribute.AllParameterSets, null);
+            HasOutputType(implementingType, expectedOutputType.FullName, ParameterAttribute.AllParameterSets, null);
         }
 
-        public static void IsOutputType(Type implementingType, string expectedOutputTypeName)
+        public static void HasOutputType(Type implementingType, string expectedOutputTypeName)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(!string.IsNullOrWhiteSpace(expectedOutputTypeName));
 
-            IsOutputType(implementingType, expectedOutputTypeName, ParameterAttribute.AllParameterSets, null);
+            HasOutputType(implementingType, expectedOutputTypeName, ParameterAttribute.AllParameterSets, null);
         }
 
-        public static void IsOutputType(Type implementingType, Type expectedOutputType, string parameterSetName)
+        public static void HasOutputType(Type implementingType, Type expectedOutputType, string parameterSetName)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(null != expectedOutputType);
 
-            IsOutputType(implementingType, expectedOutputType.FullName, parameterSetName, null);
+            HasOutputType(implementingType, expectedOutputType.FullName, parameterSetName, null);
         }
 
-        public static void IsOutputType(Type implementingType, string expectedOutputTypeName, string parameterSetName)
+        public static void HasOutputType(Type implementingType, string expectedOutputTypeName, string parameterSetName)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(!string.IsNullOrWhiteSpace(expectedOutputTypeName));
 
-            IsOutputType(implementingType, expectedOutputTypeName, parameterSetName, null);
+            HasOutputType(implementingType, expectedOutputTypeName, parameterSetName, null);
         }
 
-        public static void IsOutputType(Type implementingType, string expectedOutputTypeName, string parameterSetName, string message)
+        public static void HasOutputType(Type implementingType, string expectedOutputTypeName, string parameterSetName, string message)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(!string.IsNullOrWhiteSpace(expectedOutputTypeName));

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>biz.dfch.CS.Testing</id>
-        <version>1.1.1</version>
+        <version>1.2.0</version>
         <title>biz.dfch.CS.Testing</title>
         <authors>d-fens GmbH</authors>
         <owners>d-fens GmbH</owners>
@@ -16,9 +16,16 @@
 Collection of utility classes that provide functionality for testing
 		</description>
         <summary>Collection of utility classes</summary>
-        <releaseNotes>20161010
-* added strong name to assembly
-* fixed InternalsVisibleTo attribute
+        <releaseNotes>20161114
+# FEATURES
+
+PowerShell
+
+* added `PsCmdletAssert` class for testing C# based Powershell `PSCmdlet`s.
+* added `ExpectParameterBindingValidationExceptionAttribute` to catch `ParameterBindingValidationException`s
+* added `ExpectAssertFailedExceptionAttribute` to catch `AssertFailedException`s
+* added `PsCmdletAssert.HasAlias` to assert defined aliases on Cmdlets
+* added `PsCmdletAssert.HasOutputType` to assert defined output types on Cmdlets
 </releaseNotes>
         <copyright>Copyright © 2014 - 2016 d-fens GmbH</copyright>
         <tags>dfch utilities C#</tags>

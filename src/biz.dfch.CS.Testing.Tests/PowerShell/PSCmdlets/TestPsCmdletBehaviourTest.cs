@@ -73,15 +73,15 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         [TestMethod]
         public void TestAliasesSucceeds()
         {
-            PsCmdletAssert.IsAliasDefined(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias1");
-            PsCmdletAssert.IsAliasDefined(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias2");
+            PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias1");
+            PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias2");
         }
 
         [TestMethod]
         [ExpectedException(typeof(AssertFailedException))]
         public void TestInexistentAliasThrowsAssertFailedException()
         {
-            PsCmdletAssert.IsAliasDefined(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias3");
+            PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias3");
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             var message = "Alias does not exist or is not defined.";
             try
             {
-                PsCmdletAssert.IsAliasDefined(typeof(TestPsCmdletBehaviour), alias, message);
+                PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), alias, message);
             }
             catch (AssertFailedException ex)
             {
@@ -119,25 +119,25 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is string);
             Assert.AreEqual(value, result);
 
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
         public void ParameterSetNameDefaultDefinesOutputTypeString()
         {
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), typeof(string), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(string), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
         public void ParameterSetNameDefaultDefinesOutputTypeFloat()
         {
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), typeof(float), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(float), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
         public void ParameterSetNameDefaultDefinesOutputTypeDouble()
         {
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), typeof(double), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(double), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
@@ -146,7 +146,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         {
             try
             {
-                PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), typeof(int), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+                PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(int), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
             }
             catch (AssertFailedException ex)
             {
@@ -161,19 +161,19 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         [TestMethod]
         public void ParameterSetNameAllDefinesOutputTypeDouble()
         {
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), typeof(double));
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(double));
         }
             
         [TestMethod]
         public void ParameterSetNameValueDefinesOutputTypeLong()
         {
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), typeof(long), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(long), TestPsCmdletBehaviour.ParametersSets.VALUE);
         }
             
         [TestMethod]
         public void ParameterSetNameValueDefinesOutputTypeFloat()
         {
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), typeof(float), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(float), TestPsCmdletBehaviour.ParametersSets.VALUE);
         }
             
         [TestMethod]
@@ -201,7 +201,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is long);
             Assert.AreEqual((long) value * 2, result);
 
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
         }
     
         [TestMethod]
@@ -220,7 +220,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is string);
             Assert.AreEqual(value.ToString(), result);
 
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
         }
     
         [TestMethod]
@@ -238,7 +238,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is long);
             Assert.AreEqual((long) value * 2, result);
 
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
         }
     
         [TestMethod]
@@ -266,7 +266,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is long);
             Assert.AreEqual((long) value * 2, result);
 
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
         }
     
         [TestMethod]
@@ -304,7 +304,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is long);
             Assert.AreEqual((long) value * 2, result);
 
-            PsCmdletAssert.IsOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
         }
     
     }
