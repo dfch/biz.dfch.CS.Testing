@@ -24,8 +24,12 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
     [Cmdlet(VerbsDiagnostic.Test, "PsCmdletBehaviour", DefaultParameterSetName = ParametersSets.DEFAULT)]
     [Alias("Test-PsCmdletBehaviourWithAnAlias1", "Test-PsCmdletBehaviourWithAnAlias2")]
-    [OutputType(typeof(string))]
+    // output type for __AllParameterSets
+    [OutputType(typeof(double))]
+    [OutputType(typeof(string), ParameterSetName = new string[] { ParametersSets.DEFAULT } )]
     [OutputType(typeof(long), ParameterSetName = new string[] { ParametersSets.VALUE } )]
+    // bogus output type defined to create an overlap in parameter sets
+    [OutputType(typeof(float), ParameterSetName = new string[] { ParametersSets.DEFAULT, ParametersSets.VALUE } )]
     public class TestPsCmdletBehaviour : PSCmdlet
     {
         public static class ParametersSets

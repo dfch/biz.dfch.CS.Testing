@@ -21,6 +21,8 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
+using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.PowerShell
 {
@@ -98,98 +100,127 @@ namespace biz.dfch.CS.Testing.PowerShell
             }
         }
 
-        public static bool HasAlias(Type implementingType, string alias)
+        public static void IsAliasDefined(Type implementingType, string expectedAlias)
         {
             Contract.Requires(null != implementingType);
-            Contract.Requires(!string.IsNullOrWhiteSpace(alias));
+            Contract.Requires(!string.IsNullOrWhiteSpace(expectedAlias));
+
+            IsAliasDefined(implementingType, expectedAlias, null);
+        }
+
+        public static void IsAliasDefined(Type implementingType, string expectedAlias, string message)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(expectedAlias));
 
             var customAttribute = (AliasAttribute) implementingType.GetCustomAttributes(typeof(AliasAttribute), true).FirstOrDefault();
-            if (null == customAttribute || null == customAttribute.AliasNames)
+            var isAttributeDefined = null != customAttribute && null != customAttribute.AliasNames;
+            if (!isAttributeDefined)
             {
-                return false;
-            }
-
-            foreach (var customAttributeAliasName in customAttribute.AliasNames)
-            {
-                if (alias.Equals(customAttributeAliasName))
+                var attributeNotDefinedMessage = new StringBuilder();
+                attributeNotDefinedMessage.AppendFormat("PsCmdletAssert.IsAliasDefined FAILED. No AliasAttribute defined.");
+                if (null != message)
                 {
-                    return true;
+                    attributeNotDefinedMessage.AppendFormat(" '{0}'", message);
                 }
+                throw new AssertFailedException(attributeNotDefinedMessage.ToString());
             }
 
-            return false;
-        }
-            
-        #region CmdletEvaluationHelper - should go into testing library when finished
-        public static Type GetOutputType<T>(T cmdlet)
-            where T : Cmdlet
-        {
-            Contract.Requires(null != cmdlet);
+            //foreach (var customAttributeAliasName in customAttribute.AliasNames)
+            //{
+            //    if (alias.Equals(customAttributeAliasName))
+            //    {
+            //        // ... 
+            //    }
+            //}
 
-            return GetOutputType(typeof(T), default(string));
-        }
-            
-        public static Type GetOutputType<T>(T cmdlet, string parameterSetName)
-            where T : Cmdlet
-        {
-            Contract.Requires(null != cmdlet);
-
-            return GetOutputType(typeof(T), parameterSetName);
-        }
-
-        public static Type GetOutputType(Type type)
-        {
-            Contract.Requires(null != type);
-            return GetOutputType(type, default(string));
-        }
-
-        public static Type GetOutputType(Type type, string parameterSetName)
-        {
-            Contract.Requires(null != type);
-
-            var outputTypeAttributes = (OutputTypeAttribute[]) type.GetCustomAttributes(typeof(OutputTypeAttribute), true);
-
-            if (0 >= outputTypeAttributes.Length)
+            var isAliasDefined = customAttribute.AliasNames.Any(expectedAlias.Equals);
+            if (isAliasDefined)
             {
-                return default(Type);
+                return;
             }
 
-            foreach (var outputTypeAttribute in outputTypeAttributes)
+            var aliasNotDefinedMessage = new StringBuilder();
+            aliasNotDefinedMessage.AppendFormat("PsCmdletAssert.IsAliasDefined FAILED. ExpectedAlias '{0}' not defined.", expectedAlias);
+            if (null != message)
             {
-                foreach (var psTypeName in outputTypeAttribute.Type)
-                {
-                    if (string.IsNullOrEmpty(parameterSetName))
-                    {
-                        return psTypeName.Type;
-                    }
-                    
-                    if (!string.IsNullOrEmpty(parameterSetName) && outputTypeAttribute.ParameterSetName.Contains(parameterSetName))
-                    {
-                        return psTypeName.Type;
-                    }
-                }
+                aliasNotDefinedMessage.AppendFormat(" '{0}'", message);
+            }
+            throw new AssertFailedException(aliasNotDefinedMessage.ToString());
+        }
+
+        public static void IsOutputType(Type implementingType, Type expectedOutputType)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(null != expectedOutputType);
+
+            IsOutputType(implementingType, expectedOutputType.FullName, ParameterAttribute.AllParameterSets, null);
+        }
+
+        public static void IsOutputType(Type implementingType, string expectedOutputTypeName)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(expectedOutputTypeName));
+
+            IsOutputType(implementingType, expectedOutputTypeName, ParameterAttribute.AllParameterSets, null);
+        }
+
+        public static void IsOutputType(Type implementingType, Type expectedOutputType, string parameterSetName)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(null != expectedOutputType);
+
+            IsOutputType(implementingType, expectedOutputType.FullName, parameterSetName, null);
+        }
+
+        public static void IsOutputType(Type implementingType, string expectedOutputTypeName, string parameterSetName)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(expectedOutputTypeName));
+
+            IsOutputType(implementingType, expectedOutputTypeName, parameterSetName, null);
+        }
+
+        public static void IsOutputType(Type implementingType, string expectedOutputTypeName, string parameterSetName, string message)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(expectedOutputTypeName));
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameterSetName));
+
+            var outputTypeAttributes = (OutputTypeAttribute[]) implementingType.GetCustomAttributes(typeof(OutputTypeAttribute), true);
+
+            var isValidOutputType = false;
+            
+            var outputTypeAttributesForGivenParameterSetName = outputTypeAttributes.Where(e => e.ParameterSetName.Contains(parameterSetName));
+            foreach (var outputTypeAttribute in outputTypeAttributesForGivenParameterSetName)
+            {
+                isValidOutputType |= outputTypeAttribute.Type.Any(e => e.Name == expectedOutputTypeName);
+            }
+            
+            if (isValidOutputType)
+            {
+                return;
             }
 
-            return default(Type);
+            var outputTypeAttributesForAllParameterSets = outputTypeAttributes.Where(e => e.ParameterSetName.Contains(ParameterAttribute.AllParameterSets));
+            foreach (var outputTypeAttribute in outputTypeAttributesForAllParameterSets)
+            {
+                isValidOutputType |= outputTypeAttribute.Type.Any(e => e.Name == expectedOutputTypeName);
+            }
+
+            if (isValidOutputType)
+            {
+                return;
+            }
+
+            var invalidOutputTypeMessage = new StringBuilder();
+            invalidOutputTypeMessage.AppendFormat("PsCmdletAssert.IsOutputType FAILED. ExpectedType '{0}' not defined for ParameterSetName '{1}'.", expectedOutputTypeName, parameterSetName);
+            if (null != message)
+            {
+                invalidOutputTypeMessage.AppendFormat(" '{0}'", message);
+            }
+            throw new AssertFailedException(invalidOutputTypeMessage.ToString());
         }
 
-        public IList<object> GetInvocationResults(IEnumerable enumerable)
-        {
-            Contract.Requires(null != enumerable);
-            Contract.Ensures(null != Contract.Result<IList<object>>());
-
-            return enumerable.Cast<object>().ToList();
-        }
-
-        public IList<T> GetInvocationResults<T>(IEnumerable<T> enumerable)
-            where T : class
-        {
-            Contract.Requires(null != enumerable);
-            Contract.Ensures(null != Contract.Result<IList<T>>());
-
-            return enumerable.ToList();
-        }
-
-        #endregion
     }
 }
