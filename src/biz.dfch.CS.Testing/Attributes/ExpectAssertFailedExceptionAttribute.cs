@@ -22,18 +22,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.Attributes
 {
-    public class ExpectParameterBindingValidationExceptionAttribute : ExpectedExceptionBaseAttribute
+    public class ExpectAssertFailedExceptionAttribute : ExpectedExceptionBaseAttribute
     {
-        private const string EXPECTED_EXCEPTION_FULLNAME = "System.Management.Automation.ParameterBindingValidationException";
+        private static readonly string _expectedExceptionFullname = typeof(AssertFailedException).FullName;
         
         public string MessagePattern { get; set; }
 
-        public ExpectParameterBindingValidationExceptionAttribute()
+        public ExpectAssertFailedExceptionAttribute()
         {
             // N/A
         }
 
-        public ExpectParameterBindingValidationExceptionAttribute(string messagePattern)
+        public ExpectAssertFailedExceptionAttribute(string messagePattern)
         {
             Contract.Requires(null != messagePattern);
 
@@ -44,7 +44,7 @@ namespace biz.dfch.CS.Testing.Attributes
         {
             string message;
 
-            if (exception.GetType().FullName == EXPECTED_EXCEPTION_FULLNAME)
+            if (exception.GetType().FullName == _expectedExceptionFullname)
             {
                 if((null == MessagePattern) || Regex.IsMatch(exception.Message, MessagePattern))
                 {

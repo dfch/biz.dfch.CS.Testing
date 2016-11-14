@@ -38,7 +38,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return Invoke(implementingType, parameters, HELP_FILE_NAME, null);
+            return Invoke(implementingType, parameters, HELP_FILE_NAME, null, null);
         }
 
         public static IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler)
@@ -47,10 +47,28 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return Invoke(implementingType, parameters, HELP_FILE_NAME, exceptionHandler);
+            return Invoke(implementingType, parameters, HELP_FILE_NAME, exceptionHandler, null);
         }
 
-        public static IList<PSObject> Invoke(Type implementingType, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler)
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler);
+        }
+
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingType, parameters, HELP_FILE_NAME, null, errorHandler);
+        }
+
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
@@ -83,18 +101,24 @@ namespace biz.dfch.CS.Testing.PowerShell
                     try
                     {
                         var invocationResults = pipeline.Invoke();
-                        return invocationResults.ToList();
-                    }
-                    catch (Exception ex)
-                    {
-                        // process exceptionHandler if an exception was raised
-                        if (null != exceptionHandler)
+
+                        if (null != errorHandler && pipeline.HadErrors)
                         {
-                            throw exceptionHandler(ex);
+                            var errorRecords = pipeline.Error.ReadToEnd().Cast<PSObject>().Select(e => e.BaseObject).Cast<ErrorRecord>().ToList();
+                            errorHandler(errorRecords);
                         }
 
-                        // throw original exception if no handler present
-                        throw;
+                        return invocationResults.ToList();
+                    }
+                    catch (CmdletInvocationException ex)
+                    {
+                        if (null == exceptionHandler || null == ex.InnerException)
+                        {
+                            // throw original exception if no handler present
+                            throw;
+                        }
+
+                        throw exceptionHandler(ex.InnerException);
                     }
                 }
             }

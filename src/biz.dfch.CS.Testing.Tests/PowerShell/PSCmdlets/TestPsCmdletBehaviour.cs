@@ -48,6 +48,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParametersSets.VALUE)]
         [Alias("value")]
+        [ValidateRange(1, int.MaxValue)]
         public int RequiredIntParameter { get; set; }
 
         protected override void BeginProcessing()
@@ -62,12 +63,6 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             WriteInformation(informationRecord);
 
             WriteWarning("myWriteWarning");
-
-            if (RequiredStringParameter.Equals("invalid-user"))
-            {
-                var errorRecord = new ErrorRecord(new ArgumentException("Invalid username", RequiredStringParameter), "myErrorId", ErrorCategory.InvalidArgument, RequiredStringParameter);
-                WriteError(errorRecord);
-            }
 
             Trace.TraceInformation("BeginProcessing. RequiredStringParameter '{0}'. OptionalStringParameter '{1}'", RequiredStringParameter, OptionalStringParameter);
         }
@@ -89,10 +84,10 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             switch (ParameterSetName)
             {
                 case ParametersSets.DEFAULT:
-                    ProcessDefault();
+                    ProcessParameterSetNameDefault();
                     break;
                 case ParametersSets.VALUE:
-                    ProcessValue();
+                    ProcessParameterSetNameValue();
                     break;
                 default:
                     // ReSharper disable once NotResolvedInText
@@ -116,7 +111,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Trace.TraceInformation("StopProcessing. RequiredStringParameter '{0}'. OptionalStringParameter '{1}'", RequiredStringParameter, OptionalStringParameter);
         }
 
-        internal void ProcessDefault()
+        internal void ProcessParameterSetNameDefault()
         {
             var output = !string.IsNullOrWhiteSpace(OptionalStringParameter) ? 
                 string.Format("{0}{1}", RequiredStringParameter, OptionalStringParameter) : 
@@ -124,7 +119,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             WriteObject(output);
         }
 
-        internal void ProcessValue()
+        internal void ProcessParameterSetNameValue()
         {
             switch (RequiredIntParameter)
             {
@@ -139,6 +134,11 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
                     // ReSharper disable once NotResolvedInText
                     var errorRecord = new ErrorRecord(new ArgumentException("Invalid int value", "RequiredIntParameter"), "myFullQualifiedErrorId", ErrorCategory.InvalidArgument, RequiredIntParameter);
                     WriteError(errorRecord);
+                    
+                    var output15 = (long) RequiredIntParameter;
+                    output15 = output15 << 1;
+                    WriteObject(output15);
+
                     break;
                 
                 // we throw an ArgumentException to test the exceptionHandler Func
@@ -149,6 +149,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
                 // we return the correct parameter type (long)
                 default:
                     var output = (long) RequiredIntParameter;
+                    output = output << 1;
                     WriteObject(output);
                     break;
             }
