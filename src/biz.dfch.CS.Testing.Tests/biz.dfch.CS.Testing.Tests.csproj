@@ -113,6 +113,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="PowerShell\PSCmdlets\EnterServerTest.cs" />
+    <Compile Include="PowerShell\PSCmdlets\EnterServer.cs" />
     <Compile Include="PowerShell\PSCmdlets\TestPsCmdletBehaviour.cs" />
     <Compile Include="PowerShell\PSCmdlets\TestPsCmdletBehaviourTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
