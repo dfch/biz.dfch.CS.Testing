@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using System;
 using biz.dfch.CS.Testing.Attributes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -54,15 +55,16 @@ namespace biz.dfch.CS.Testing.Tests.Attributes
             Assert.AreEqual(42, result);
         }
 
-        // this test is supposed to fail
+        // this test is supposed to fail, therefore we skip it on build server
+        [TestCategory("SkipOnTeamCity")]
         [TestMethod]
         [ExpectContractFailure(MessagePattern = "invalid-pattern")]
         public void RunningTestWithFalseThrowsCodeContractExceptionWithInvalidPattern()
         {
             var sut = new CodeContractsTest();
 
+            // this test is supposed to fail, therefore we skip it on build server
             var result = sut.CallingMeWithTrueReturns42ThrowsContractExceptionOtherwise(false);
-
             Assert.AreEqual(42, result);
         }
     }
