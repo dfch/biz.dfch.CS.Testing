@@ -84,7 +84,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             Contract.Assert(null != sourceFileInfo.DirectoryName);
             var fileName = Path.Combine(sourceFileInfo.DirectoryName, SCRIPT_FILE);
             var fileInfo = new FileInfo(fileName);
-            Contract.Assert(fileInfo.Exists, sourceFileInfo.FullName);
+            Contract.Assert(fileInfo.Exists, fileInfo.FullName);
         }
 
         public string GetCallerFilePathAttribute([System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
