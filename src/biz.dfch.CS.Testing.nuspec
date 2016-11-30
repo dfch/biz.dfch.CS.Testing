@@ -23,6 +23,10 @@ PsCmdAssert
 
 * added support for multiple PsCmdlets
 * added support for script block initialisation code to be executed before Cmdlet invocation
+
+ExpectException
+
+* added ExpectExceptionAttribute to validate exception messages
 </releaseNotes>
         <copyright>Copyright © 2014 - 2016 d-fens GmbH</copyright>
         <tags>dfch utilities C#</tags>
