@@ -172,7 +172,7 @@
     <None Include="app.config" />
     <None Include="biz.dfch.CS.pfx" />
     <None Include="packages.config" />
-    <None Include="PowerShell\script1.ps1">
+    <None Include="PowerShell\PsCmdletAssertTest.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

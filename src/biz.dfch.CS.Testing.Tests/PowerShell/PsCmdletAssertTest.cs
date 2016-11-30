@@ -17,7 +17,6 @@
 using System;
 using System.Diagnostics.Contracts;
 using System.IO;
-using System.Management.Automation;
 using System.Reflection;
 using biz.dfch.CS.Testing.PowerShell;
 using biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets;
@@ -28,25 +27,26 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
     [TestClass]
     public class PsCmdletAssertTest
     {
-        public const string SCRIPT_PATH = "PowerShell";
-        public const string SCRIPT_FILE = "script1.ps1";
+        public const string SCRIPT_FILE = "PsCmdletAssertTest.ps1";
 
         [TestMethod]
-        [TestCategory("SkipOnTeamCity")]
         public void InvokeCmdletWithGlobalScriptBlockSucceeds()
         {
-            var fileName = Path.Combine(AssemblyDirectory, SCRIPT_PATH, SCRIPT_FILE);
+            var fileName = Path.Combine(GetSourceDirectory(), SCRIPT_FILE);
             var fileInfo = new FileInfo(fileName);
             Contract.Assert(fileInfo.Exists, fileInfo.FullName);
 
             var content = File.ReadAllText(fileInfo.FullName);
             Contract.Assert(!string.IsNullOrWhiteSpace(content), fileInfo.FullName);
 
-            PsCmdletAssert.ScriptDefinition = content;
-            var parameters = @"-RequiredStringParameter 'someValue';";
+            var parameters = @"-RequiredStringParameter 'Cmdlet2' -OptionalStringParameter $tralala;";
+            var results = PsCmdletAssert.Invoke( new [] { typeof(TestCmdlet2), typeof(TestCmdlet1) } , parameters, scriptDefinition: content);
             
-            var results = PsCmdletAssert.Invoke(typeof(TestCmdlet2), parameters);
             Assert.IsNotNull(results);
+            Assert.AreEqual(2, results.Count);
+            Assert.IsTrue(results[1].BaseObject.ToString().StartsWith("Cmdlet2"));
+            Assert.IsTrue(results[1].BaseObject.ToString().EndsWith(results[0].BaseObject.ToString()));
+            
             for (var c = 0; c < results.Count; c++)
             {
                 var psObject = results[c];
@@ -56,40 +56,12 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             }
         }
 
-        [TestMethod]
-        public void Test2()
+        public static string GetSourceDirectory([System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
         {
-            var message = string.Format("CallerFilePath '{0}'", GetCallerFilePathAttribute());
-            Contract.Assert(false, message);
-        }
+            Contract.Ensures(null != Contract.Result<string>());
 
-        [TestMethod]
-        public void Test4()
-        {
-            var message = string.Format("AssemblyDirectory '{0}'", AssemblyDirectory);
-            Contract.Assert(false, message);
-        }
-
-        [TestMethod]
-        public void Test5()
-        {
-            var sourceFileInfo = new FileInfo(GetCallerFilePathAttribute());
-            Contract.Assert(sourceFileInfo.Exists, sourceFileInfo.FullName);
-        }
-
-        [TestMethod]
-        public void Test6()
-        {
-            var sourceFileInfo = new FileInfo(GetCallerFilePathAttribute());
-            Contract.Assert(null != sourceFileInfo.DirectoryName);
-            var fileName = Path.Combine(sourceFileInfo.DirectoryName, SCRIPT_FILE);
-            var fileInfo = new FileInfo(fileName);
-            Contract.Assert(fileInfo.Exists, fileInfo.FullName);
-        }
-
-        public string GetCallerFilePathAttribute([System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
-        {
-            return sourceFilePath;
+            var sourceFileInfo = new FileInfo(sourceFilePath);
+            return sourceFileInfo.DirectoryName;
         }
 
         public static string AssemblyDirectory
