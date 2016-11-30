@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ExpectExceptionAttribute.cs" />
     <Compile Include="Attributes\ExpectParameterBindingExceptionAttribute.cs" />
     <Compile Include="Attributes\ExpectAssertFailedExceptionAttribute.cs" />
     <Compile Include="Attributes\ExpectParameterBindingValidationExceptionAttribute.cs" />

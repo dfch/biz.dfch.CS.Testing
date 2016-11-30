@@ -156,6 +156,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Attributes\ExpectExceptionAttributeTest.cs" />
     <Compile Include="PowerShell\PsCmdletAssertTest.cs" />
     <Compile Include="PowerShell\PSCmdlets\TestCmdlet2Test.cs" />
     <Compile Include="PowerShell\PSCmdlets\TestCmdlet2.cs" />
