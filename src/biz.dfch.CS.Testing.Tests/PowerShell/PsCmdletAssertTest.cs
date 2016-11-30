@@ -32,6 +32,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
         public const string SCRIPT_FILE = "script1.ps1";
 
         [TestMethod]
+        [TestCategory("SkipOnTeamCity")]
         public void InvokeCmdletWithGlobalScriptBlockSucceeds()
         {
             var fileName = Path.Combine(AssemblyDirectory, SCRIPT_PATH, SCRIPT_FILE);
