@@ -25,6 +25,25 @@ This project containts a collection of utility classes to facilitate testing. Fo
 
 See also [Releases](https://github.com/dfch/biz.dfch.CS.Testing/releases) and [Tags](https://github.com/dfch/biz.dfch.CS.Testing/tags)
 
+### 1.3.0 - 20161115
+FEATURES
+
+PowerShell
+
+* added `PsCmdletAssert` class for testing C# based Powershell `PSCmdlet`s.
+* added `ExpectParameterBindingValidationExceptionAttribute` to catch `ParameterBindingValidationException`s
+* added `ExpectParameterBindingExceptionAttribute` to catch `ParameterBindingException`s
+* added `ExpectAssertFailedExceptionAttribute` to catch `AssertFailedException`s
+* added `PsCmdletAssert.HasAlias` to assert defined aliases on Cmdlets
+* added `PsCmdletAssert.HasOutputType` to assert defined output types on Cmdlets
+
+C#
+* changed `ExpectContractFailureAttribute` to support regex based `Message` validation
+
+### 1.2.1 - 20161114
+
+### 1.1.0 - 20161010
+
 ### 1.0.0 - 20161007
 
 * Initial release

@@ -32,13 +32,47 @@ namespace biz.dfch.CS.Testing.PowerShell
         // it really does not matter which help file name we use so we take this as a default when contructing a CmdletConfigurationEntry
         private const string HELP_FILE_NAME = "Microsoft.Windows.Installer.PowerShell.dll-Help.xml";
 
+        private const string CMDLET_PARAMETER_FORMAT = "{0} {1}";
+        private const string SCRIPTBLOCK_DELIMITER = "; ";
+
+        public static string ScriptDefinition { get; set; }
+
         public static IList<PSObject> Invoke(Type implementingType, string parameters)
         {
             Contract.Requires(null != implementingType);
             Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return Invoke(implementingType, parameters, HELP_FILE_NAME, null, null);
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: scriptDefinition);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: scriptDefinition);
         }
 
         public static IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler)
@@ -47,7 +81,36 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return Invoke(implementingType, parameters, HELP_FILE_NAME, exceptionHandler, null);
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: scriptDefinition);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: scriptDefinition);
         }
 
         public static IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
@@ -56,7 +119,36 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return Invoke(implementingType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler);
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: scriptDefinition);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: scriptDefinition);
         }
 
         public static IList<PSObject> Invoke(Type implementingType, string parameters, Action<IList<ErrorRecord>> errorHandler)
@@ -65,7 +157,36 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return Invoke(implementingType, parameters, HELP_FILE_NAME, null, errorHandler);
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: scriptDefinition);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: scriptDefinition);
         }
 
         public static IList<PSObject> Invoke(Type implementingType, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
@@ -75,28 +196,79 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(helpFileName));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            // construct the Cmdlet name the type implements
-            var cmdletAttribute = (CmdletAttribute) implementingType.GetCustomAttributes(typeof(CmdletAttribute), true).Single();
-            Contract.Assert(null != cmdletAttribute);
-            var cmdletName = string.Format(POWERSHELL_CMDLET_NAME_FORMATSTRING, cmdletAttribute.VerbName, cmdletAttribute.NounName);
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
+        }
 
-            // add the cmdlet to the runspace
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(helpFileName));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
+        }
+
+        public static IList<PSObject> Invoke(Type implementingType, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingType);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(helpFileName));
+            Contract.Requires(!string.IsNullOrWhiteSpace(scriptDefinition));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: exceptionHandler, errorHandler: errorHandler, scriptDefinition: scriptDefinition);
+        }
+
+        public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
+        {
+            Contract.Requires(null != implementingTypes);
+            Contract.Requires(!string.IsNullOrWhiteSpace(parameters));
+            Contract.Requires(!string.IsNullOrWhiteSpace(helpFileName));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
             var runspaceConfiguration = RunspaceConfiguration.Create();
-            var cmdletConfigurationEntry = new CmdletConfigurationEntry
-            (
-                cmdletName
-                ,
-                implementingType
-                ,
-                helpFileName
-            );
-            runspaceConfiguration.Cmdlets.Append(cmdletConfigurationEntry);
+            var cmdletNameToInvoke = "";
+            
+            foreach (var implementingType in implementingTypes)
+            {
+                // construct the Cmdlet name the type implements
+                var cmdletAttribute = (CmdletAttribute) implementingType.GetCustomAttributes(typeof(CmdletAttribute), true).Single();
+                Contract.Assert(null != cmdletAttribute, typeof(CmdletAttribute).FullName);
+                var cmdletName = string.Format(POWERSHELL_CMDLET_NAME_FORMATSTRING, cmdletAttribute.VerbName, cmdletAttribute.NounName);
+
+                if (implementingType == implementingTypes[0])
+                {
+                    cmdletNameToInvoke = cmdletName;
+                }
+
+                // add the cmdlet to the runspace
+                var cmdletConfigurationEntry = new CmdletConfigurationEntry
+                (
+                    cmdletName
+                    ,
+                    implementingType
+                    ,
+                    helpFileName
+                );
+                runspaceConfiguration.Cmdlets.Append(cmdletConfigurationEntry);
+            }
+            Contract.Assert(!string.IsNullOrWhiteSpace(cmdletNameToInvoke));
 
             using (var runspace = RunspaceFactory.CreateRunspace(runspaceConfiguration))
             {
                 runspace.Open();
-                var commandText = string.Format("{0} {1}", cmdletName, parameters);
-                using (var pipeline = runspace.CreatePipeline(commandText))
+
+                // add scripts to cmdlet to be executed
+                var commandText = new StringBuilder();
+                commandText.Append(ScriptDefinition);
+                commandText.AppendLine(SCRIPTBLOCK_DELIMITER);
+                commandText.Append(scriptDefinition);
+                commandText.AppendLine(SCRIPTBLOCK_DELIMITER);
+                commandText.AppendFormat(CMDLET_PARAMETER_FORMAT, cmdletNameToInvoke, parameters);
+                commandText.AppendLine(SCRIPTBLOCK_DELIMITER);
+
+                using (var pipeline = runspace.CreatePipeline(commandText.ToString()))
                 {
                     try
                     {
@@ -149,14 +321,6 @@ namespace biz.dfch.CS.Testing.PowerShell
                 }
                 throw new AssertFailedException(attributeNotDefinedMessage.ToString());
             }
-
-            //foreach (var customAttributeAliasName in customAttribute.AliasNames)
-            //{
-            //    if (alias.Equals(customAttributeAliasName))
-            //    {
-            //        // ... 
-            //    }
-            //}
 
             var isAliasDefined = customAttribute.AliasNames.Any(expectedAlias.Equals);
             if (isAliasDefined)

@@ -32,13 +32,14 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.0.*")]
+[assembly: AssemblyVersion("1.4.0.*")]
 
 [assembly: InternalsVisibleTo("biz.dfch.CS.Testing.Tests" +
 ",PublicKey=" +
-"00240000048000009400000006020000002400005253413100040000010001001b40be1e0fe173" +
-"6d8c862c055965cb78086432e7b2377bc9c36122936b394e789fcdfbfeecebbc1d7f90b0be7fd4" +
-"f871822cc3a06d5af4ff4d6a9fa0176b9b3fa53e17c407adeb1caec47ee243b213eff6fdb57438" +
-"a5677addf3b70bf0766b3db70773b39d7f9544146d4470c4d5f55d718680ba1da6f22dce4d5527" +
-"c8e202c0"
+"0024000004800000940000000602000000240000525341310004000001000100b3ff1f5b1cd339" +
+"a46db108a12f4a03c7cef0c469a649a1af9c3853730c054e65e5f95a697f46998c3cd3ba7fae75" +
+"5cb5556b570ab64daa3e7f720a27331a3334c39510ed49c4b253dcb3f7716000fd836c8c2dbdb5" +
+"153efeff6e70570bf6d814ff18272afac8750fb7f1ccd13616597b2828e5ef297043c5e0bf4bbc" +
+"101bdcae" +
+""
     )]
