@@ -56,6 +56,39 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             }
         }
 
+        [TestMethod]
+        public void Test1()
+        {
+            var message = string.Format("CallerFilePath '{0}'", GetCallerFilePathAttribute());
+            System.Diagnostics.Trace.WriteLine(message);
+        }
+
+        [TestMethod]
+        public void Test2()
+        {
+            var message = string.Format("CallerFilePath '{0}'", GetCallerFilePathAttribute());
+            Contract.Assert(false, message);
+        }
+
+        [TestMethod]
+        public void Test3()
+        {
+            var message = string.Format("AssemblyDirectory '{0}'", AssemblyDirectory);
+            System.Diagnostics.Trace.WriteLine(message);
+        }
+
+        [TestMethod]
+        public void Test4()
+        {
+            var message = string.Format("AssemblyDirectory '{0}'", AssemblyDirectory);
+            Contract.Assert(false, message);
+        }
+
+        public string GetCallerFilePathAttribute([System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
+        {
+            return sourceFilePath;
+        }
+
         public static string AssemblyDirectory
         {
             get
