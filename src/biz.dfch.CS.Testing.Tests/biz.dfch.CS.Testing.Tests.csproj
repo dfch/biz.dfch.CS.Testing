@@ -156,6 +156,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\ExpectExceptionAttributeTest.cs" />
     <Compile Include="PowerShell\PsCmdletAssertTest.cs" />
     <Compile Include="PowerShell\PSCmdlets\TestCmdlet2Test.cs" />
@@ -166,7 +170,6 @@
     <Compile Include="PowerShell\PSCmdlets\TestCmdlet1Test.cs" />
     <Compile Include="PowerShell\PSCmdlets\TestPsCmdletBehaviour.cs" />
     <Compile Include="PowerShell\PSCmdlets\TestPsCmdletBehaviourTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\ExpectContractFailureAttributeTest.cs" />
   </ItemGroup>
   <ItemGroup>
