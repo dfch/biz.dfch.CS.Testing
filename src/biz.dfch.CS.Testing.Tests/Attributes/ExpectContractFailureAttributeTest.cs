@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-using System;
 using biz.dfch.CS.Testing.Attributes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
