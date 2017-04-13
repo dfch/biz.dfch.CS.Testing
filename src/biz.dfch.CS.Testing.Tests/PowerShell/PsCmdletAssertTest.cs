@@ -75,7 +75,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             };
 
             // Act
-            var results = PsCmdletAssert.InvokeCmdlet(typeof(TestCmdlet2), parameters);
+            var results = PsCmdletAssert.Invoke(typeof(TestCmdlet2), parameters);
 
             // Assert
             Assert.IsNotNull(results);
