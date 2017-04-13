@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace biz.dfch.CS.Testing.Attributes
 {
     public sealed class ExpectContractFailureAttribute : ExpectedContractExceptionAttribute

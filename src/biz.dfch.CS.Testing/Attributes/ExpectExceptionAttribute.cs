@@ -17,7 +17,6 @@
 using System;
 using System.Diagnostics.Contracts;
 using System.Globalization;
-using System.Management.Automation;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

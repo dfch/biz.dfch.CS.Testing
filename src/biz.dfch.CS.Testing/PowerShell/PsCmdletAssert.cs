@@ -15,7 +15,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -272,6 +271,111 @@ namespace biz.dfch.CS.Testing.PowerShell
                 {
                     try
                     {
+                        var invocationResults = pipeline.Invoke();
+
+                        if (null != errorHandler && pipeline.HadErrors)
+                        {
+                            var errorRecords = pipeline.Error.ReadToEnd().Cast<PSObject>().Select(e => e.BaseObject).Cast<ErrorRecord>().ToList();
+                            errorHandler(errorRecords);
+                        }
+
+                        return invocationResults.ToList();
+                    }
+                    catch (CmdletInvocationException ex)
+                    {
+                        if (null == exceptionHandler || null == ex.InnerException)
+                        {
+                            // throw original exception if no handler present
+                            throw;
+                        }
+
+                        throw exceptionHandler(ex.InnerException);
+                    }
+                }
+            }
+        }
+
+        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters)
+        {
+            Contract.Requires(null != cmdletType);
+            Contract.Requires(null != parameters);
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null);
+        }
+
+        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, Func<Exception, Exception> exceptionHandler)
+        {
+            Contract.Requires(null != cmdletType);
+            Contract.Requires(null != parameters);
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null);
+        }
+
+        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != cmdletType);
+            Contract.Requires(null != parameters);
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler);
+        }
+
+
+        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != cmdletType);
+            Contract.Requires(null != parameters);
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler);
+        }
+
+        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
+        {
+            Contract.Requires(null != cmdletType);
+            Contract.Requires(null != parameters);
+            Contract.Requires(!string.IsNullOrWhiteSpace(helpFileName));
+            Contract.Ensures(null != Contract.Result<IList<PSObject>>());
+
+            var runspaceConfiguration = RunspaceConfiguration.Create();
+
+            // construct the Cmdlet name the type implements
+            var cmdletAttribute = (CmdletAttribute)cmdletType.GetCustomAttributes(typeof(CmdletAttribute), true).Single();
+            Contract.Assert(null != cmdletAttribute, typeof(CmdletAttribute).FullName);
+            var cmdletName = string.Format(POWERSHELL_CMDLET_NAME_FORMATSTRING, cmdletAttribute.VerbName, cmdletAttribute.NounName);
+
+            var cmdletNameToInvoke = cmdletName;
+
+            // add the cmdlet to the runspace
+            var cmdletConfigurationEntry = new CmdletConfigurationEntry
+            (
+                cmdletName
+                ,
+                cmdletType
+                ,
+                helpFileName
+            );
+            runspaceConfiguration.Cmdlets.Append(cmdletConfigurationEntry);
+
+            Contract.Assert(!string.IsNullOrWhiteSpace(cmdletNameToInvoke));
+
+            using (var runspace = RunspaceFactory.CreateRunspace(runspaceConfiguration))
+            {
+                runspace.Open();
+
+                using (var pipeline = runspace.CreatePipeline())
+                {
+                    try
+                    {
+                        var command = new Command(cmdletNameToInvoke);
+                        foreach (var parameter in parameters)
+                        {
+                            command.Parameters.Add(new CommandParameter(parameter.Key, parameter.Value));
+                        }
+                        pipeline.Commands.Add(command);
+
                         var invocationResults = pipeline.Invoke();
 
                         if (null != errorHandler && pipeline.HadErrors)

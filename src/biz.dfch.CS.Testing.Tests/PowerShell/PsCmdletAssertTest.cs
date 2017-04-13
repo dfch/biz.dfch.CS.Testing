@@ -15,6 +15,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Reflection;
@@ -30,8 +31,9 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
         public const string SCRIPT_FILE = "PsCmdletAssertTest.ps1";
 
         [TestMethod]
-        public void InvokeCmdletWithGlobalScriptBlockSucceeds()
+        public void InvokeWithGlobalScriptBlockAndCmdletCallSucceeds()
         {
+            // Arrange
             var fileName = Path.Combine(GetSourceDirectory(), SCRIPT_FILE);
             var fileInfo = new FileInfo(fileName);
             Contract.Assert(fileInfo.Exists, fileInfo.FullName);
@@ -40,8 +42,11 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             Contract.Assert(!string.IsNullOrWhiteSpace(content), fileInfo.FullName);
 
             var parameters = @"-RequiredStringParameter 'Cmdlet2' -OptionalStringParameter $tralala;";
+
+            // Act
             var results = PsCmdletAssert.Invoke( new [] { typeof(TestCmdlet2), typeof(TestCmdlet1) } , parameters, scriptDefinition: content);
             
+            // Assert
             Assert.IsNotNull(results);
             Assert.AreEqual(2, results.Count);
             Assert.IsTrue(results[1].BaseObject.ToString().StartsWith("Cmdlet2"));
@@ -54,6 +59,29 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
                 var message = string.Format("{0}: '{1}'", c, psObject ?? "<null>");
                 System.Diagnostics.Trace.WriteLine(message);
             }
+        }
+
+        [TestMethod]
+        public void InvokeCmdletWithParametersSucceeds()
+        {
+            // Arrange
+            var requiredStringParameter = "Cmdlet2";
+            var optionalStringParameter = "Arbitrary";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { nameof(TestCmdlet2.RequiredStringParameter), requiredStringParameter },
+                { nameof(TestCmdlet2.OptionalStringParameter), optionalStringParameter }
+            };
+
+            // Act
+            var results = PsCmdletAssert.InvokeCmdlet(typeof(TestCmdlet2), parameters);
+
+            // Assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count);
+            Assert.IsTrue(results[0].BaseObject.ToString().StartsWith(requiredStringParameter));
+            Assert.IsTrue(results[0].BaseObject.ToString().EndsWith(optionalStringParameter));
         }
 
         public static string GetSourceDirectory([System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
