@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>biz.dfch.CS.Testing</id>
-        <version>1.4.0</version>
+        <version>1.5.0</version>
         <title>biz.dfch.CS.Testing</title>
         <authors>d-fens GmbH</authors>
         <owners>d-fens GmbH</owners>
@@ -16,19 +16,13 @@
 Collection of utility classes that provide functionality for testing
 		</description>
         <summary>Collection of utility classes</summary>
-        <releaseNotes>20161130
+        <releaseNotes>20170413
 # FEATURES
 
-PsCmdAssert
-
-* added support for multiple PsCmdlets
-* added support for script block initialisation code to be executed before Cmdlet invocation
-
-ExpectException
-
-* added ExpectExceptionAttribute to validate exception messages
+PsCmdletAssert
+* Invoke overloads added to allow mocking by passing objects cmdlet parameters
 </releaseNotes>
-        <copyright>Copyright © 2014 - 2016 d-fens GmbH</copyright>
+        <copyright>Copyright © 2014 - 2017 d-fens GmbH</copyright>
         <tags>dfch utilities C#</tags>
         <dependencies>
         </dependencies>
