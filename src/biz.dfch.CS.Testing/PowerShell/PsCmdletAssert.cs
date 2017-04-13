@@ -295,44 +295,44 @@ namespace biz.dfch.CS.Testing.PowerShell
             }
         }
 
-        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters)
+        public static IList<PSObject> Invoke(Type cmdletType, Dictionary<string, object> parameters)
         {
             Contract.Requires(null != cmdletType);
             Contract.Requires(null != parameters);
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null);
+            return Invoke(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null);
         }
 
-        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, Func<Exception, Exception> exceptionHandler)
+        public static IList<PSObject> Invoke(Type cmdletType, Dictionary<string, object> parameters, Func<Exception, Exception> exceptionHandler)
         {
             Contract.Requires(null != cmdletType);
             Contract.Requires(null != parameters);
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null);
+            return Invoke(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null);
         }
 
-        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
+        public static IList<PSObject> Invoke(Type cmdletType, Dictionary<string, object> parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != cmdletType);
             Contract.Requires(null != parameters);
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler);
+            return Invoke(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler);
         }
 
 
-        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, Action<IList<ErrorRecord>> errorHandler)
+        public static IList<PSObject> Invoke(Type cmdletType, Dictionary<string, object> parameters, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != cmdletType);
             Contract.Requires(null != parameters);
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            return InvokeCmdlet(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler);
+            return Invoke(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler);
         }
 
-        public static IList<PSObject> InvokeCmdlet(Type cmdletType, Dictionary<string, object> parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
+        public static IList<PSObject> Invoke(Type cmdletType, Dictionary<string, object> parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != cmdletType);
             Contract.Requires(null != parameters);
