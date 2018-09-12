@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>biz.dfch.CS.Testing</id>
-        <version>1.5.0</version>
+        <version>2.0.0</version>
         <title>biz.dfch.CS.Testing</title>
         <authors>d-fens GmbH</authors>
         <owners>d-fens GmbH</owners>
@@ -16,11 +16,12 @@
 Collection of utility classes that provide functionality for testing
 		</description>
         <summary>Collection of utility classes</summary>
-        <releaseNotes>20170413
+        <releaseNotes>20180912
 # FEATURES
 
-PsCmdletAssert
-* Invoke overloads added to allow mocking by passing objects cmdlet parameters
+* Version of target .NET Framework updated to 4.7.1
+* Compatibility with VS2017 ensured
+* Package Microsoft.PowerShell.5.ReferenceAssemblies updated
 </releaseNotes>
         <copyright>Copyright © 2014 - 2018 d-fens GmbH</copyright>
         <tags>dfch utilities C#</tags>
