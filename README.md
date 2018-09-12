@@ -15,7 +15,7 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 
 ## Description
 
-This project containts a collection of utility classes to facilitate testing. Formerly this functionality has been included in [biz.dfch.CS.System.Utilities](https://github.com/dfch/biz.dfch.CS.System.Utilities), but due to the dependency on some VisualStudio assemblies this has been extraced and separated.
+This project containts a collection of utility classes to facilitate testing. Formerly this functionality has been included in [biz.dfch.CS.System.Utilities](https://github.com/dfch/biz.dfch.CS.System.Utilities), but due to the dependency on some VisualStudio assemblies this has been extracted and separated.
 
 * ExpectContractFailure attribute to assert Code Contract exceptions
 
