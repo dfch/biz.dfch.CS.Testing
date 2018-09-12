@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("d-fens GmbH")]
 [assembly: AssemblyProduct("biz.dfch.CS.Testing.Tests")]
-[assembly: AssemblyCopyright("Copyright © 2014-2016 d-fens GmbH")]
+[assembly: AssemblyCopyright("Copyright © 2014-2018 d-fens GmbH")]
 [assembly: AssemblyTrademark("d-fens is a registered trademark in the European Union and/or other countries.")]
 [assembly: AssemblyCulture("")]
 

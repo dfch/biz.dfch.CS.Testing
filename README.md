@@ -1,7 +1,7 @@
 # biz.dfch.CS.Testing
 [![Build Status](https://build.dfch.biz/app/rest/builds/buildType:(id:CSharpDotNet_BizDfchCsTestingGit_Build)/statusIcon)](https://build.dfch.biz/project.html?projectId=CSharpDotNet_BizDfchCsTestingGit&tab=projectOverview)
 [![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](https://github.com/dfch/biz.dfch.CS.Testing/blob/master/LICENSE)
-![Version](https://img.shields.io/nuget/v/biz.dfch.CS.Testing.svg)
+[![Version](https://img.shields.io/nuget/v/biz.dfch.CS.Testing.svg)](https://www.nuget.org/packages/biz.dfch.CS.Testing/)
 
 Assembly: biz.dfch.CS.Testing.dll
 
@@ -15,7 +15,7 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 
 ## Description
 
-This project containts a collection of utility classes to facilitate testing. Formerly this functionality has been included in [biz.dfch.CS.System.Utilities](https://github.com/dfch/biz.dfch.CS.System.Utilities), but due to the dependency on some VisualStudio assemblies this has been extraced and separated.
+This project containts a collection of utility classes to facilitate testing. Formerly this functionality has been included in [biz.dfch.CS.System.Utilities](https://github.com/dfch/biz.dfch.CS.System.Utilities), but due to the dependency on some VisualStudio assemblies this has been extracted and separated.
 
 * ExpectContractFailure attribute to assert Code Contract exceptions
 
@@ -24,6 +24,29 @@ This project containts a collection of utility classes to facilitate testing. Fo
 ## [Release Notes](https://github.com/dfch/biz.dfch.CS.Testing/releases)
 
 See also [Releases](https://github.com/dfch/biz.dfch.CS.Testing/releases) and [Tags](https://github.com/dfch/biz.dfch.CS.Testing/tags)
+
+### 2.0.0 - 20180912
+FEATURES
+
+* Version of target .NET Framework updated to 4.7.1
+* Compatibility with VS2017 ensured
+* Package Microsoft.PowerShell.5.ReferenceAssemblies updated
+
+### 1.5.0 - 20170413
+FEATURES
+
+PsCmdletAssert
+* Invoke overloads added to allow mocking by passing objects cmdlet parameters
+
+### 1.4.0 - 20161130
+FEATURES
+
+PsCmdAssert
+- added support for multiple PsCmdlets
+- added support for script block initialisation code to be executed before Cmdlet invocation
+
+ExpectException
+- added ExpectExceptionAttribute to validate exception messages
 
 ### 1.3.0 - 20161115
 FEATURES

@@ -24,7 +24,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
          , 
          ConfirmImpact = ConfirmImpact.Medium
          , 
-         DefaultParameterSetName = ParameterSets.Credential
+         DefaultParameterSetName = ParameterSets.CREDENTIAL
          , 
          SupportsShouldProcess = true
          , 
@@ -35,26 +35,26 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
     {
         public static class ParameterSets
         {
-            public const string Credential = "cred";
-            public const string Plain = "plain";
-            public const string OAuth2 = "oauth2";
+            public const string CREDENTIAL = "cred";
+            public const string PLAIN = "plain";
+            public const string OAUTH2 = "oauth2";
         }
             
         [Parameter(Mandatory = true, Position = 0)]
         [Alias("ConnectionUri")]
         public Uri Uri { get; set; }
 
-        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSets.Plain)]
+        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSets.PLAIN)]
         public string Username { get; set; }
 
-        [Parameter(Mandatory = true, Position = 2, ParameterSetName = ParameterSets.Plain)]
+        [Parameter(Mandatory = true, Position = 2, ParameterSetName = ParameterSets.PLAIN)]
         public string Password { get; set; }
 
-        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSets.Credential)]
+        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSets.CREDENTIAL)]
         [Alias("cred")]
         public PSCredential Credential { get; set; }
 
-        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSets.OAuth2)]
+        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSets.OAUTH2)]
         [Alias("token")]
         public string OAuth2Token { get; set; }
 
