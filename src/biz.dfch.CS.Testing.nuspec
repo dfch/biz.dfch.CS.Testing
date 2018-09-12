@@ -22,7 +22,7 @@ Collection of utility classes that provide functionality for testing
 PsCmdletAssert
 * Invoke overloads added to allow mocking by passing objects cmdlet parameters
 </releaseNotes>
-        <copyright>Copyright © 2014 - 2017 d-fens GmbH</copyright>
+        <copyright>Copyright © 2014 - 2018 d-fens GmbH</copyright>
         <tags>dfch utilities C#</tags>
         <dependencies>
         </dependencies>
