@@ -25,6 +25,13 @@ This project containts a collection of utility classes to facilitate testing. Fo
 
 See also [Releases](https://github.com/dfch/biz.dfch.CS.Testing/releases) and [Tags](https://github.com/dfch/biz.dfch.CS.Testing/tags)
 
+### 2.0.0 - 20180912
+FEATURES
+
+* Version of target .NET Framework updated to 4.7.1
+* Compatibility with VS2017 ensured
+* Package Microsoft.PowerShell.5.ReferenceAssemblies updated
+
 ### 1.5.0 - 20170413
 FEATURES
 
