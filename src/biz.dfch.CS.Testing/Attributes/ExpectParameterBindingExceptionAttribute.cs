@@ -67,9 +67,7 @@ namespace biz.dfch.CS.Testing.Attributes
             message = string.Format
             (
                 CultureInfo.InvariantCulture,
-                "Test method {0}.{1} threw exception {2}, but ParameterBindingValidationException was expected. Exception message: {3}",
-                base.TestContext.FullyQualifiedTestClassName,
-                base.TestContext.TestName,
+                "Test method threw exception {0}, but ParameterBindingValidationException was expected. Exception message: {1}",
                 exception.GetType().FullName,
                 exception.Message
             );
