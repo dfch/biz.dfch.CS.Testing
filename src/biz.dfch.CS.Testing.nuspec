@@ -26,6 +26,9 @@ Collection of utility classes that provide functionality for testing
         <copyright>Copyright © 2014 - 2018 d-fens GmbH</copyright>
         <tags>dfch utilities C#</tags>
         <dependencies>
+          <dependency id="CodeContracts.MSBuild" version="1.12.0" />
+          <dependency id="Microsoft.PowerShell.5.ReferenceAssemblies" />
+          <dependency id="MSTest.TestFramework" version="1.3.2" />
         </dependencies>
     </metadata>
 	<files>
