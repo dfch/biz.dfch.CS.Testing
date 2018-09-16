@@ -165,7 +165,10 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="PowerShell\PsCmdletAssert2Test.cs" />
     <Compile Include="PowerShell\PsCmdletAssertContractExceptionTest.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet3Test.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\ExpectExceptionAttributeTest.cs" />
     <Compile Include="PowerShell\PsCmdletAssertTest.cs" />
