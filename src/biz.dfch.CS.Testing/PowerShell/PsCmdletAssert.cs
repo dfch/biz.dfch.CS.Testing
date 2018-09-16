@@ -25,16 +25,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.PowerShell
 {
+    [Obsolete(OBSOLETE_MESSAGE_USE_PSCMDLETASSERT2_INSTEAD)]
     public class PsCmdletAssert
     {
+        private const string OBSOLETE_MESSAGE_USE_PSCMDLETASSERT2_INSTEAD = "Use PsCmdletAssert2 instead.";
+
         private const string POWERSHELL_CMDLET_NAME_FORMATSTRING = "{0}-{1}";
-        // it really does not matter which help file name we use so we take this as a default when contructing a CmdletConfigurationEntry
+        // it really does not matter which help file name we use so we take this as a default when constructing a CmdletConfigurationEntry
         private const string HELP_FILE_NAME = "Microsoft.Windows.Installer.PowerShell.dll-Help.xml";
 
         private const string CMDLET_PARAMETER_FORMAT = "{0} {1}";
         private const string SCRIPTBLOCK_DELIMITER = "; ";
 
         public static string ScriptDefinition { get; set; }
+
+        #region Invoke with string parameters stubs
 
         public static IList<PSObject> Invoke(Type implementingType, string parameters)
         {
@@ -218,6 +223,7 @@ namespace biz.dfch.CS.Testing.PowerShell
 
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: exceptionHandler, errorHandler: errorHandler, scriptDefinition: scriptDefinition);
         }
+        #endregion
 
         public static IList<PSObject> Invoke(Type[] implementingTypes, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
         {
@@ -295,6 +301,8 @@ namespace biz.dfch.CS.Testing.PowerShell
             }
         }
 
+        #region Invoke with Dictionary parameter stubs
+
         public static IList<PSObject> Invoke(Type cmdletType, Dictionary<string, object> parameters)
         {
             Contract.Requires(null != cmdletType);
@@ -331,6 +339,8 @@ namespace biz.dfch.CS.Testing.PowerShell
 
             return Invoke(cmdletType, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler);
         }
+        
+        #endregion
 
         public static IList<PSObject> Invoke(Type cmdletType, Dictionary<string, object> parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
