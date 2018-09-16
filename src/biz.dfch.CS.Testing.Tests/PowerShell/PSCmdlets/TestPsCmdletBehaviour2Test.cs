@@ -205,7 +205,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         }
 
         [TestMethod]
-        [ExpectAssertFailedException(@"PsCmdletAssert2.IsOutputType FAILED. ExpectedType 'System.String' not defined for ParameterSetName 'value'")]
+        [ExpectAssertFailedException(@"PsCmdletAssert2.HasOutputType FAILED. ExpectedType 'System.String' not defined for ParameterSetName 'value'")]
         public void InvokeWithValue8ReturnsString()
         {
             var value = 8;

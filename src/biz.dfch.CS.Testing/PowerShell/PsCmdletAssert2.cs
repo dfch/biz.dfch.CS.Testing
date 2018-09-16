@@ -442,7 +442,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(expectedAlias));
 
             var customAttribute = (AliasAttribute)implementingType.GetCustomAttributes(typeof(AliasAttribute), true).FirstOrDefault();
-            var isAttributeDefined = null != customAttribute && null != customAttribute.AliasNames;
+            var isAttributeDefined = null != customAttribute?.AliasNames;
             if (!isAttributeDefined)
             {
                 var attributeNotDefinedMessage = new StringBuilder();
@@ -534,7 +534,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             }
 
             var invalidOutputTypeMessage = new StringBuilder();
-            invalidOutputTypeMessage.AppendFormat("PsCmdletAssert2.IsOutputType FAILED. ExpectedType '{0}' not defined for ParameterSetName '{1}'.", expectedOutputTypeName, parameterSetName);
+            invalidOutputTypeMessage.AppendFormat("PsCmdletAssert2.HasOutputType FAILED. ExpectedType '{0}' not defined for ParameterSetName '{1}'.", expectedOutputTypeName, parameterSetName);
             if (null != message)
             {
                 invalidOutputTypeMessage.AppendFormat(" '{0}'", message);
