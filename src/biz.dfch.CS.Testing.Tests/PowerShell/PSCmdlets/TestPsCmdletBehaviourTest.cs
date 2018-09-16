@@ -23,6 +23,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
+    [Obsolete("Use TestPsCmdletBehaviour2Test instead.")]
     [TestClass]
     public class TestPsCmdletBehaviourTest
     {

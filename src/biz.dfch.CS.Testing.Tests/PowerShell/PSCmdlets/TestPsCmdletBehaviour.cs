@@ -21,6 +21,7 @@ using System.Management.Automation;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
+    [Obsolete("Use TestPsCmdletBehaviour2 instead.")]
     [Cmdlet(VerbsDiagnostic.Test, "PsCmdletBehaviour", DefaultParameterSetName = ParametersSets.DEFAULT)]
     [Alias("Test-PsCmdletBehaviourWithAnAlias1", "Test-PsCmdletBehaviourWithAnAlias2")]
     // output type for __AllParameterSets
