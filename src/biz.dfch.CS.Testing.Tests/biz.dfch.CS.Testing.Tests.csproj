@@ -165,6 +165,7 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <None Include="PowerShell\PsCmdletAssert2Test.ps1" />
     <Compile Include="PowerShell\PsCmdletAssertContractException2Test.cs" />
     <Compile Include="PowerShell\PsCmdletAssert2Test.cs" />
     <Compile Include="PowerShell\PsCmdletAssertContractExceptionTest.cs" />
