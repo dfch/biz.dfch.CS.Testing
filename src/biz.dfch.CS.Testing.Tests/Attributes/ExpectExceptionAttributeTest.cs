@@ -34,7 +34,7 @@ namespace biz.dfch.CS.Testing.Tests.Attributes
         [TestMethod]
         [TestCategory("SkipOnTeamCity")]
         [ExpectException(typeof(ExpectedException), "^expected-value")]
-        public void ExpectExceptionDoesNotMatchMessagePattern()
+        public void ThisTestIsSupposedToFail___ExpectExceptionDoesNotMatchMessagePattern()
         {
             // this test is supposed to fail, therefore we skip it on build server
             throw new ExpectedException("unexpected-value");
@@ -44,7 +44,7 @@ namespace biz.dfch.CS.Testing.Tests.Attributes
         [TestMethod]
         [TestCategory("SkipOnTeamCity")]
         [ExpectException(typeof(ExpectedException), "expected-value")]
-        public void ExpectExceptionThrowsUnexpectedException()
+        public void ThisTestIsSupposedToFail___ExpectExceptionThrowsUnexpectedException()
         {
             // this test is supposed to fail, therefore we skip it on build server
             throw new UnexpectedException("expected-value");
