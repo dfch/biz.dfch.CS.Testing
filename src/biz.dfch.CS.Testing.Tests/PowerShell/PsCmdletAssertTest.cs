@@ -41,10 +41,10 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             var content = File.ReadAllText(fileInfo.FullName);
             Contract.Assert(!string.IsNullOrWhiteSpace(content), fileInfo.FullName);
 
-            var parameters = @"-RequiredStringParameter 'Cmdlet2' -OptionalStringParameter $tralala;";
+            const string PARAMETERS = @"-RequiredStringParameter 'Cmdlet2' -OptionalStringParameter $tralala;";
 
             // Act
-            var results = PsCmdletAssert.Invoke( new [] { typeof(TestCmdlet2), typeof(TestCmdlet1) } , parameters, scriptDefinition: content);
+            var results = PsCmdletAssert.Invoke( new [] { typeof(TestCmdlet2), typeof(TestCmdlet1) } , PARAMETERS, scriptDefinition: content);
             
             // Assert
             Assert.IsNotNull(results);
@@ -91,17 +91,5 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             var sourceFileInfo = new FileInfo(sourceFilePath);
             return sourceFileInfo.DirectoryName;
         }
-
-        public static string AssemblyDirectory
-        {
-            get
-            {
-                var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                var uri = new UriBuilder(codeBase);
-                var path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
-            }
-        }
     }
-
 }
