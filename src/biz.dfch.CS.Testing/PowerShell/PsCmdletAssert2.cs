@@ -59,6 +59,8 @@ namespace biz.dfch.CS.Testing.PowerShell
             this.variableEntries = variableEntries;
         }
 
+        #region Obsolete Invoke() methods with string parameters
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters)
         {
             Contract.Requires(null != implementingType);
@@ -68,6 +70,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters)
         {
             Contract.Requires(null != implementingTypes);
@@ -77,6 +80,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, string scriptDefinition)
         {
             Contract.Requires(null != implementingType);
@@ -87,6 +91,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, string scriptDefinition)
         {
             Contract.Requires(null != implementingTypes);
@@ -97,6 +102,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: null, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler)
         {
             Contract.Requires(null != implementingType);
@@ -106,6 +112,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler)
         {
             Contract.Requires(null != implementingTypes);
@@ -115,6 +122,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingType);
@@ -125,6 +133,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingTypes);
@@ -135,6 +144,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler: null, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != implementingType);
@@ -144,6 +154,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != implementingTypes);
@@ -153,6 +164,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingType);
@@ -163,6 +175,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingTypes);
@@ -173,6 +186,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler, errorHandler, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != implementingType);
@@ -182,6 +196,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != implementingTypes);
@@ -191,6 +206,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingType);
@@ -201,6 +217,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingTypes);
@@ -211,6 +228,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != implementingType);
@@ -221,6 +239,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler)
         {
             Contract.Requires(null != implementingTypes);
@@ -231,6 +250,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(implementingTypes, parameters, HELP_FILE_NAME, exceptionHandler: null, errorHandler: errorHandler, scriptDefinition: null);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type implementingType, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingType);
@@ -242,6 +262,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             return Invoke(new Type[] { implementingType }, parameters, HELP_FILE_NAME, exceptionHandler: exceptionHandler, errorHandler: errorHandler, scriptDefinition: scriptDefinition);
         }
 
+        [Obsolete("Use Invoke() with Dictionary<> parameters instead.")]
         public IList<PSObject> Invoke(Type[] implementingTypes, string parameters, string helpFileName, Func<Exception, Exception> exceptionHandler, Action<IList<ErrorRecord>> errorHandler, string scriptDefinition)
         {
             Contract.Requires(null != implementingTypes);
@@ -249,9 +270,10 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(helpFileName));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            var runspaceConfiguration = RunspaceConfiguration.Create();
-
             var cmdletNameToInvoke = "";
+
+            var initialSessionState = InitialSessionState.CreateDefault();
+            initialSessionState.Variables.Add(variableEntries);
 
             foreach (var implementingType in implementingTypes)
             {
@@ -264,22 +286,18 @@ namespace biz.dfch.CS.Testing.PowerShell
                 {
                     cmdletNameToInvoke = cmdletName;
                 }
+                Contract.Assert(!string.IsNullOrWhiteSpace(cmdletNameToInvoke));
 
-                // add the cmdlet to the runspace
-                var cmdletConfigurationEntry = new CmdletConfigurationEntry
-                (
-                    cmdletName
-                    ,
-                    implementingType
-                    ,
-                    helpFileName
-                );
-                runspaceConfiguration.Cmdlets.Append(cmdletConfigurationEntry);
+                var sessionStateCommandEntries = new List<SessionStateCommandEntry>
+                {
+                    new SessionStateCmdletEntry(cmdletName, implementingType, helpFileName)
+                };
+                initialSessionState.Commands.Add(sessionStateCommandEntries);
             }
-            Contract.Assert(!string.IsNullOrWhiteSpace(cmdletNameToInvoke));
 
-            using (var runspace = RunspaceFactory.CreateRunspace(runspaceConfiguration))
+            using (var runspace = RunspaceFactory.CreateRunspace(initialSessionState))
             {
+                runspace.ApartmentState = ApartmentState.STA;
                 runspace.Open();
 
                 // add scripts to cmdlet to be executed
@@ -318,6 +336,7 @@ namespace biz.dfch.CS.Testing.PowerShell
                 }
             }
         }
+        #endregion
 
         #region Invoke with Dictionary parameter stubs
 
@@ -367,32 +386,21 @@ namespace biz.dfch.CS.Testing.PowerShell
             Contract.Requires(!string.IsNullOrWhiteSpace(helpFileName));
             Contract.Ensures(null != Contract.Result<IList<PSObject>>());
 
-            var runspaceConfiguration = RunspaceConfiguration.Create();
-
             // construct the Cmdlet name the type implements
             var cmdletAttribute = (CmdletAttribute)cmdletType.GetCustomAttributes(typeof(CmdletAttribute), true).Single();
             Contract.Assert(null != cmdletAttribute, typeof(CmdletAttribute).FullName);
             var cmdletName = string.Format(POWERSHELL_CMDLET_NAME_FORMATSTRING, cmdletAttribute.VerbName, cmdletAttribute.NounName);
 
             var cmdletNameToInvoke = cmdletName;
-
-            // add the cmdlet to the runspace
-            var cmdletConfigurationEntry = new CmdletConfigurationEntry
-            (
-                cmdletName
-                ,
-                cmdletType
-                ,
-                helpFileName
-            );
-            runspaceConfiguration.Cmdlets.Append(cmdletConfigurationEntry);
-
             Contract.Assert(!string.IsNullOrWhiteSpace(cmdletNameToInvoke));
 
             var initialSessionState = InitialSessionState.CreateDefault();
             initialSessionState.Variables.Add(variableEntries);
-            var sessionStateCommandEntries = new List<SessionStateCommandEntry>();
-            sessionStateCommandEntries.Add(new SessionStateCmdletEntry(cmdletName, cmdletType, helpFileName));
+
+            var sessionStateCommandEntries = new List<SessionStateCommandEntry>
+            {
+                new SessionStateCmdletEntry(cmdletName, cmdletType, helpFileName)
+            };
             initialSessionState.Commands.Add(sessionStateCommandEntries);
 
             using (var runspace = RunspaceFactory.CreateRunspace(initialSessionState))
