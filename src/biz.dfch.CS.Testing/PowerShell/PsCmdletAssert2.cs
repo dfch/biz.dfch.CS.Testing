@@ -446,7 +446,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             if (!isAttributeDefined)
             {
                 var attributeNotDefinedMessage = new StringBuilder();
-                attributeNotDefinedMessage.AppendFormat("PsCmdletAssert.IsAliasDefined FAILED. No AliasAttribute defined.");
+                attributeNotDefinedMessage.AppendFormat("PsCmdletAssert2.IsAliasDefined FAILED. No AliasAttribute defined.");
                 if (null != message)
                 {
                     attributeNotDefinedMessage.AppendFormat(" '{0}'", message);
@@ -461,7 +461,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             }
 
             var aliasNotDefinedMessage = new StringBuilder();
-            aliasNotDefinedMessage.AppendFormat("PsCmdletAssert.IsAliasDefined FAILED. ExpectedAlias '{0}' not defined.", expectedAlias);
+            aliasNotDefinedMessage.AppendFormat("PsCmdletAssert2.IsAliasDefined FAILED. ExpectedAlias '{0}' not defined.", expectedAlias);
             if (null != message)
             {
                 aliasNotDefinedMessage.AppendFormat(" '{0}'", message);
@@ -534,7 +534,7 @@ namespace biz.dfch.CS.Testing.PowerShell
             }
 
             var invalidOutputTypeMessage = new StringBuilder();
-            invalidOutputTypeMessage.AppendFormat("PsCmdletAssert.IsOutputType FAILED. ExpectedType '{0}' not defined for ParameterSetName '{1}'.", expectedOutputTypeName, parameterSetName);
+            invalidOutputTypeMessage.AppendFormat("PsCmdletAssert2.IsOutputType FAILED. ExpectedType '{0}' not defined for ParameterSetName '{1}'.", expectedOutputTypeName, parameterSetName);
             if (null != message)
             {
                 invalidOutputTypeMessage.AppendFormat(" '{0}'", message);
