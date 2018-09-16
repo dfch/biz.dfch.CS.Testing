@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
+using System.Management.Automation;
 using System.Reflection;
 using biz.dfch.CS.Testing.PowerShell;
 using biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets;
@@ -90,6 +91,32 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
 
             var sourceFileInfo = new FileInfo(sourceFilePath);
             return sourceFileInfo.DirectoryName;
+        }
+
+        [TestMethod]
+        public void InvokingPowerShellWithPsDefaultParameterValuesSucceeds()
+        {
+            // Arrange
+            var requiredStringParameter = "tralala";
+
+            var defaultParameterDictionary = new DefaultParameterDictionary
+            {
+                { "Test-Cmdlet3:RequiredStringParameter", requiredStringParameter }
+            };
+            var defaultParameters = new Dictionary<string, object>
+            {
+                { "PSDefaultParameterValues", defaultParameterDictionary }
+            };
+
+            var parameters = new Dictionary<string, object>();
+
+            // Act
+            var results = new PsCmdletAssert2(defaultParameters).Invoke(typeof(TestCmdlet3), parameters);
+
+            // Assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count);
+            Assert.IsTrue(results[0].BaseObject.ToString().StartsWith(requiredStringParameter));
         }
     }
 }

@@ -389,8 +389,15 @@ namespace biz.dfch.CS.Testing.PowerShell
 
             Contract.Assert(!string.IsNullOrWhiteSpace(cmdletNameToInvoke));
 
-            using (var runspace = RunspaceFactory.CreateRunspace(runspaceConfiguration))
+            var initialSessionState = InitialSessionState.CreateDefault();
+            initialSessionState.Variables.Add(variableEntries);
+            var sessionStateCommandEntries = new List<SessionStateCommandEntry>();
+            sessionStateCommandEntries.Add(new SessionStateCmdletEntry(cmdletName, cmdletType, helpFileName));
+            initialSessionState.Commands.Add(sessionStateCommandEntries);
+
+            using (var runspace = RunspaceFactory.CreateRunspace(initialSessionState))
             {
+                runspace.ApartmentState = ApartmentState.STA;
                 runspace.Open();
 
                 using (var pipeline = runspace.CreatePipeline())
