@@ -14,62 +14,14 @@
  * limitations under the License.
  */
 
-using System.Diagnostics.Contracts;
-using System.Management.Automation;
+using System;
 using biz.dfch.CS.Testing.Attributes;
 using biz.dfch.CS.Testing.PowerShell;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell
 {
-    [Cmdlet(
-         VerbsDiagnostic.Test, "ContractException"
-         , 
-         ConfirmImpact = ConfirmImpact.Low
-         , 
-         DefaultParameterSetName = ParameterSets.DEFAULT
-         , 
-         SupportsShouldProcess = false
-         , 
-         HelpUri = "http://dfch.biz/biz/dfch/PS/Testing/Tests/Test-ContractException/"
-    )]
-    [OutputType(typeof(string))]
-    public class TestContractException : PSCmdlet
-    {
-        public static class ParameterSets
-        {
-            public const string DEFAULT = "default";
-        }
-            
-        [Parameter(Mandatory = false, Position = 0, ParameterSetName = ParameterSets.DEFAULT)]
-        [PSDefaultValue(Value = 0)]
-        public int Id { get; set; }
-
-        protected override void ProcessRecord()
-        {
-            base.ProcessRecord();
-
-            var output = default(string);
-
-            switch (Id)
-            {
-                case 0:
-                    break;
-                case 1:
-                    output = Id.ToString();
-                    break;
-                case 42:
-                    Contract.Assert(42 != Id);
-                    break;
-                default:
-                    output = Id.ToString();
-                    break;
-            }
-
-            WriteObject(output);
-        }
-    }
-
+    [Obsolete("Use PsCmdletAssertContractException2Test instead.")]
     [TestClass]
     public class PsCmdletAssertContractExceptionTest
     {
