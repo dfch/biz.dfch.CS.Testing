@@ -25,11 +25,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.PowerShell
 {
-    [Obsolete(OBSOLETE_MESSAGE_USE_PSCMDLETASSERT2_INSTEAD)]
+    [Obsolete("Use PsCmdletAssert2 instead.")]
     public class PsCmdletAssert
     {
-        private const string OBSOLETE_MESSAGE_USE_PSCMDLETASSERT2_INSTEAD = "Use PsCmdletAssert2 instead.";
-
         private const string POWERSHELL_CMDLET_NAME_FORMATSTRING = "{0}-{1}";
         // it really does not matter which help file name we use so we take this as a default when constructing a CmdletConfigurationEntry
         private const string HELP_FILE_NAME = "Microsoft.Windows.Installer.PowerShell.dll-Help.xml";

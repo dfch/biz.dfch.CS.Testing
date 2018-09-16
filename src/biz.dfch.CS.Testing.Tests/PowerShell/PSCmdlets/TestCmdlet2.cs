@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
+using System;
 using System.Management.Automation;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
+    [Obsolete("Use TestCmdlet3 instead.")]
     [Cmdlet(
          VerbsDiagnostic.Test, "Cmdlet2"
          , 

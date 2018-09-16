@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+using System;
 using biz.dfch.CS.Testing.Attributes;
 using biz.dfch.CS.Testing.PowerShell;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
+    [Obsolete("Use TestCmdlet3Test instead.")]
     [TestClass]
     public class TestCmdlet2Test
     {
