@@ -25,6 +25,13 @@ This project containts a collection of utility classes to facilitate testing. Fo
 
 See also [Releases](https://github.com/dfch/biz.dfch.CS.Testing/releases) and [Tags](https://github.com/dfch/biz.dfch.CS.Testing/tags)
 
+### 2.1.0 - 20180917
+FEATURES
+
+* Implemented `PsCmdletAssert2`
+* Marked `PsCmdletAssert` as obsolete
+* Support for session state variables
+
 ### 2.0.2 - 20180913
 BUGS
 
