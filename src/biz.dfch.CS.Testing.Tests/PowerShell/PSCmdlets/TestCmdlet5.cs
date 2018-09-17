@@ -14,50 +14,42 @@
  * limitations under the License.
  */
 
-using System;
 using System.Management.Automation;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
-    [Obsolete("Use TestCmdlet3 instead.")]
     [Cmdlet(
-         VerbsDiagnostic.Test, "Cmdlet2"
-         , 
+         VerbsDiagnostic.Test, "Cmdlet5"
+         ,
          ConfirmImpact = ConfirmImpact.Low
-         , 
+         ,
          DefaultParameterSetName = ParameterSets.DEFAULT
-         , 
+         ,
          SupportsShouldProcess = true
-         , 
-         HelpUri = "http://dfch.biz/biz/dfch/PS/Testing/Tests/Test-Cmdlet2/"
+         ,
+         HelpUri = "http://dfch.biz/biz/dfch/PS/Testing/Tests/Test-Cmdlet5/"
     )]
     [OutputType(typeof(string))]
-    public class TestCmdlet2 : PSCmdlet
+    public class TestCmdlet5 : PSCmdlet
     {
         public static class ParameterSets
         {
             public const string DEFAULT = "default";
         }
-            
-        [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParameterSets.DEFAULT)]
-        public string RequiredStringParameter { get; set; }
 
-        [Parameter(Mandatory = false, Position = 1, ParameterSetName = ParameterSets.DEFAULT)]
-        public string OptionalStringParameter { get; set; }
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParameterSets.DEFAULT)]
+        public ArbitraryClass RequiredComplexParameter { get; set; }
 
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
 
-            if (!ShouldProcess(RequiredStringParameter))
+            if (!ShouldProcess(RequiredComplexParameter.ToString()))
             {
                 return;
             }
 
-            var output = string.IsNullOrWhiteSpace(OptionalStringParameter)
-                ? RequiredStringParameter
-                : string.Format("{0}-{1}", RequiredStringParameter, OptionalStringParameter);
-            
+            var output = $"{RequiredComplexParameter.ArbitraryStringParameter}-{RequiredComplexParameter.ArbitraryIntParameter}";
             WriteObject(output);
         }
     }

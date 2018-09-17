@@ -165,7 +165,20 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <None Include="PowerShell\PsCmdletAssert2Test.ps1" />
+    <Compile Include="PowerShell\PsCmdletAssertContractException2Test.cs" />
+    <Compile Include="PowerShell\PsCmdletAssert2Test.cs" />
     <Compile Include="PowerShell\PsCmdletAssertContractExceptionTest.cs" />
+    <Compile Include="PowerShell\PSCmdlets\ArbitraryClass.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet5Test.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet5.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestPsCmdletBehaviour2.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet4Test.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet4.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestPsCmdletBehaviour2Test.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet3Test.cs" />
+    <Compile Include="PowerShell\PSCmdlets\TestCmdlet3.cs" />
+    <Compile Include="PowerShell\TestContractException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\ExpectExceptionAttributeTest.cs" />
     <Compile Include="PowerShell\PsCmdletAssertTest.cs" />

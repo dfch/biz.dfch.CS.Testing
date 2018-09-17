@@ -26,15 +26,20 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
     {
         [TestMethod]
         [ExpectParameterBindingException(MessagePattern = @"'Uri'.+'System\.Uri'")]
-        public void InvokeWithoutParametersThrowsParameterBindingValidationException()
+        public void InvokeWithoutParametersThrowsParameterBindingValidationExceptionObsolete()
         {
-            Func<Exception, Exception> exceptionHandler = exception =>
-            {
-                return exception;
-            };
+            Func<Exception, Exception> exceptionHandler = exception => exception;
             var parameters = @"-Uri ";
             var results = PsCmdletAssert.Invoke(typeof(EnterServer), parameters, exceptionHandler);
         }
-    }
 
+        [TestMethod]
+        [ExpectParameterBindingException(MessagePattern = @"'Uri'.+'System\.Uri'")]
+        public void InvokeWithoutParametersThrowsParameterBindingValidationException()
+        {
+            Func<Exception, Exception> exceptionHandler = exception => exception;
+            var parameters = @"-Uri ";
+            var results = new PsCmdletAssert2().Invoke(typeof(EnterServer), parameters, exceptionHandler);
+        }
+    }
 }

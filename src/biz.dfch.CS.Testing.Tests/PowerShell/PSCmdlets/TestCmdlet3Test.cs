@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-using System;
 using biz.dfch.CS.Testing.Attributes;
 using biz.dfch.CS.Testing.PowerShell;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
-    [Obsolete("Use TestCmdlet4Test instead.")]
     [TestClass]
-    public class TestCmdlet1Test
+    public class TestCmdlet3Test
     {
         [TestMethod]
         [ExpectParameterBindingException(MessagePattern = @"RequiredStringParameter")]
         public void InvokeWithoutParametersThrowsParameterBindingException()
         {
             var parameters = @";";
-            var results = PsCmdletAssert.Invoke(typeof(TestCmdlet1), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestCmdlet3), parameters);
         }
 
         [TestMethod]
@@ -38,7 +36,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         {
             var param1 = "arbitrary-value1";
             var parameters = string.Format(@"-RequiredStringParameter '{0}'", param1);
-            var results = PsCmdletAssert.Invoke(typeof(TestCmdlet1), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestCmdlet3), parameters);
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
             var result = results[0].ToString();
@@ -51,7 +49,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             var param1 = "arbitrary-value1";
             var param2 = "arbitrary-value2";
             var parameters = string.Format(@"-RequiredStringParameter '{0}' -OptionalStringParameter '{1}'", param1, param2);
-            var results = PsCmdletAssert.Invoke(typeof(TestCmdlet1), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestCmdlet3), parameters);
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
             var result = results[0].ToString();

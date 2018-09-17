@@ -58,7 +58,7 @@ namespace biz.dfch.CS.Testing.Tests.Attributes
         [TestCategory("SkipOnTeamCity")]
         [TestMethod]
         [ExpectContractFailure(MessagePattern = "invalid-pattern")]
-        public void RunningTestWithFalseThrowsCodeContractExceptionWithInvalidPattern()
+        public void ThisTestIsSupposedToFail___RunningTestWithFalseThrowsCodeContractExceptionWithInvalidPattern()
         {
             var sut = new CodeContractsTest();
 

@@ -14,31 +14,29 @@
  * limitations under the License.
  */
 
-using System;
 using System.Management.Automation;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
-    [Obsolete("Use TestCmdlet3 instead.")]
     [Cmdlet(
-         VerbsDiagnostic.Test, "Cmdlet2"
-         , 
+         VerbsDiagnostic.Test, "Cmdlet4"
+         ,
          ConfirmImpact = ConfirmImpact.Low
-         , 
+         ,
          DefaultParameterSetName = ParameterSets.DEFAULT
-         , 
+         ,
          SupportsShouldProcess = true
-         , 
-         HelpUri = "http://dfch.biz/biz/dfch/PS/Testing/Tests/Test-Cmdlet2/"
+         ,
+         HelpUri = "http://dfch.biz/biz/dfch/PS/Testing/Tests/Test-Cmdlet4/"
     )]
     [OutputType(typeof(string))]
-    public class TestCmdlet2 : PSCmdlet
+    public class TestCmdlet4 : PSCmdlet
     {
         public static class ParameterSets
         {
             public const string DEFAULT = "default";
         }
-            
+
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParameterSets.DEFAULT)]
         public string RequiredStringParameter { get; set; }
 
@@ -57,7 +55,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             var output = string.IsNullOrWhiteSpace(OptionalStringParameter)
                 ? RequiredStringParameter
                 : string.Format("{0}-{1}", RequiredStringParameter, OptionalStringParameter);
-            
+
             WriteObject(output);
         }
     }

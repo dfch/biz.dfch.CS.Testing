@@ -21,23 +21,22 @@ using System.Management.Automation;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
-    [Obsolete("Use TestPsCmdletBehaviour2 instead.")]
     [Cmdlet(VerbsDiagnostic.Test, "PsCmdletBehaviour", DefaultParameterSetName = ParametersSets.DEFAULT)]
     [Alias("Test-PsCmdletBehaviourWithAnAlias1", "Test-PsCmdletBehaviourWithAnAlias2")]
     // output type for __AllParameterSets
     [OutputType(typeof(double))]
-    [OutputType(typeof(string), ParameterSetName = new string[] { ParametersSets.DEFAULT } )]
-    [OutputType(typeof(long), ParameterSetName = new string[] { ParametersSets.VALUE } )]
+    [OutputType(typeof(string), ParameterSetName = new string[] { ParametersSets.DEFAULT })]
+    [OutputType(typeof(long), ParameterSetName = new string[] { ParametersSets.VALUE })]
     // bogus output type defined to create an overlap in parameter sets
-    [OutputType(typeof(float), ParameterSetName = new string[] { ParametersSets.DEFAULT, ParametersSets.VALUE } )]
-    public class TestPsCmdletBehaviour : PSCmdlet
+    [OutputType(typeof(float), ParameterSetName = new string[] { ParametersSets.DEFAULT, ParametersSets.VALUE })]
+    public class TestPsCmdletBehaviour2 : PSCmdlet
     {
         public static class ParametersSets
         {
             public const string DEFAULT = "default";
             public const string VALUE = "value";
         }
-    
+
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParametersSets.DEFAULT)]
         [Alias("name")]
         public string RequiredStringParameter { get; set; }
@@ -113,8 +112,8 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 
         internal void ProcessParameterSetNameDefault()
         {
-            var output = !string.IsNullOrWhiteSpace(OptionalStringParameter) ? 
-                string.Format("{0}{1}", RequiredStringParameter, OptionalStringParameter) : 
+            var output = !string.IsNullOrWhiteSpace(OptionalStringParameter) ?
+                string.Format("{0}{1}", RequiredStringParameter, OptionalStringParameter) :
                 RequiredStringParameter;
             WriteObject(output);
         }
@@ -134,21 +133,21 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
                     // ReSharper disable once NotResolvedInText
                     var errorRecord = new ErrorRecord(new ArgumentException("Invalid int value", "RequiredIntParameter"), "myFullQualifiedErrorId", ErrorCategory.InvalidArgument, RequiredIntParameter);
                     WriteError(errorRecord);
-                    
-                    var output15 = (long) RequiredIntParameter;
+
+                    var output15 = (long)RequiredIntParameter;
                     output15 = output15 << 1;
                     WriteObject(output15);
 
                     break;
-                
+
                 // we throw an ArgumentException to test the exceptionHandler Func
                 case 42:
                     // ReSharper disable once NotResolvedInText
                     throw new ArgumentException("Invalid int value", "RequiredIntParameter");
-                
+
                 // we return the correct parameter type (long)
                 default:
-                    var output = (long) RequiredIntParameter;
+                    var output = (long)RequiredIntParameter;
                     output = output << 1;
                     WriteObject(output);
                     break;

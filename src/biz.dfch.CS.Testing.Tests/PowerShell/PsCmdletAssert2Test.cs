@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
+using System.Management.Automation;
 using System.Reflection;
 using biz.dfch.CS.Testing.PowerShell;
 using biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets;
@@ -26,9 +27,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace biz.dfch.CS.Testing.Tests.PowerShell
 {
     [TestClass]
-    public class PsCmdletAssertTest
+    public class PsCmdletAssert2Test
     {
-        public const string SCRIPT_FILE = "PsCmdletAssertTest.ps1";
+        public const string SCRIPT_FILE = "PsCmdletAssert2Test.ps1";
 
         [TestMethod]
         public void InvokeWithGlobalScriptBlockAndCmdletCallSucceeds()
@@ -41,17 +42,17 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
             var content = File.ReadAllText(fileInfo.FullName);
             Contract.Assert(!string.IsNullOrWhiteSpace(content), fileInfo.FullName);
 
-            const string PARAMETERS = @"-RequiredStringParameter 'Cmdlet2' -OptionalStringParameter $tralala;";
+            const string PARAMETERS = @"-RequiredStringParameter 'Cmdlet3' -OptionalStringParameter $tralala;";
 
             // Act
-            var results = PsCmdletAssert.Invoke( new [] { typeof(TestCmdlet2), typeof(TestCmdlet1) } , PARAMETERS, scriptDefinition: content);
-            
+            var results = new PsCmdletAssert2().Invoke(new[] { typeof(TestCmdlet3), typeof(TestCmdlet4) }, PARAMETERS, scriptDefinition: content);
+
             // Assert
             Assert.IsNotNull(results);
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results[1].BaseObject.ToString().StartsWith("Cmdlet2"));
+            Assert.IsTrue(results[1].BaseObject.ToString().StartsWith("Cmdlet3"));
             Assert.IsTrue(results[1].BaseObject.ToString().EndsWith(results[0].BaseObject.ToString()));
-            
+
             for (var c = 0; c < results.Count; c++)
             {
                 var psObject = results[c];
@@ -65,17 +66,17 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
         public void InvokeCmdletWithParametersSucceeds()
         {
             // Arrange
-            var requiredStringParameter = "Cmdlet2";
+            var requiredStringParameter = "Cmdlet3";
             var optionalStringParameter = "Arbitrary";
 
             var parameters = new Dictionary<string, object>
             {
-                { nameof(TestCmdlet2.RequiredStringParameter), requiredStringParameter },
-                { nameof(TestCmdlet2.OptionalStringParameter), optionalStringParameter }
+                { nameof(TestCmdlet3.RequiredStringParameter), requiredStringParameter },
+                { nameof(TestCmdlet3.OptionalStringParameter), optionalStringParameter }
             };
 
             // Act
-            var results = PsCmdletAssert.Invoke(typeof(TestCmdlet2), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestCmdlet3), parameters);
 
             // Assert
             Assert.IsNotNull(results);
@@ -90,6 +91,32 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
 
             var sourceFileInfo = new FileInfo(sourceFilePath);
             return sourceFileInfo.DirectoryName;
+        }
+
+        [TestMethod]
+        public void InvokingPowerShellWithPsDefaultParameterValuesSucceeds()
+        {
+            // Arrange
+            var requiredStringParameter = "tralala";
+
+            var defaultParameterDictionary = new DefaultParameterDictionary
+            {
+                { "Test-Cmdlet3:RequiredStringParameter", requiredStringParameter }
+            };
+            var defaultParameters = new Dictionary<string, object>
+            {
+                { "PSDefaultParameterValues", defaultParameterDictionary }
+            };
+
+            var parameters = new Dictionary<string, object>();
+
+            // Act
+            var results = new PsCmdletAssert2(defaultParameters).Invoke(typeof(TestCmdlet3), parameters);
+
+            // Assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count);
+            Assert.IsTrue(results[0].BaseObject.ToString().StartsWith(requiredStringParameter));
         }
     }
 }

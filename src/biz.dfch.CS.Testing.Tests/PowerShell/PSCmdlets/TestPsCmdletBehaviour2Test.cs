@@ -23,16 +23,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 {
-    [Obsolete("Use TestPsCmdletBehaviour2Test instead.")]
     [TestClass]
-    public class TestPsCmdletBehaviourTest
+    public class TestPsCmdletBehaviour22Test
     {
         [TestMethod]
         [ExpectParameterBindingValidationException(MessagePattern = "RequiredStringParameter")]
         public void InvokeWithEmptyStringPropertyValueThrowsParameterBindingValidationException()
         {
             var parameters = @"-RequiredStringParameter ''";
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
         }
@@ -42,7 +41,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         public void InvokeWithNullStringPropertyValueThrowsParameterBindingValidationException()
         {
             var parameters = @"-RequiredStringParameter $null";
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
         }
@@ -52,7 +51,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         {
             var value = "arbitrary-RequiredStringParameter-value";
             var parameters = string.Format(@"-RequiredStringParameter '{0}'", value);
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
             var result = results[0].ToString();
@@ -64,7 +63,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         {
             var value = "arbitrary-RequiredStringParameter-value";
             var parameters = string.Format(@"-name '{0}'", value);
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
             var result = results[0].ToString();
@@ -74,15 +73,15 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         [TestMethod]
         public void TestAliasesSucceeds()
         {
-            PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias1");
-            PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias2");
+            new PsCmdletAssert2().HasAlias(typeof(TestPsCmdletBehaviour2), "Test-PsCmdletBehaviourWithAnAlias1");
+            new PsCmdletAssert2().HasAlias(typeof(TestPsCmdletBehaviour2), "Test-PsCmdletBehaviourWithAnAlias2");
         }
 
         [TestMethod]
         [ExpectedException(typeof(AssertFailedException))]
         public void TestInexistentAliasThrowsAssertFailedException()
         {
-            PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), "Test-PsCmdletBehaviourWithAnAlias3");
+            new PsCmdletAssert2().HasAlias(typeof(TestPsCmdletBehaviour2), "Test-PsCmdletBehaviourWithAnAlias3");
         }
 
         [TestMethod]
@@ -93,11 +92,11 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             var message = "Alias does not exist or is not defined.";
             try
             {
-                PsCmdletAssert.HasAlias(typeof(TestPsCmdletBehaviour), alias, message);
+                new PsCmdletAssert2().HasAlias(typeof(TestPsCmdletBehaviour2), alias, message);
             }
             catch (AssertFailedException ex)
             {
-                Assert.IsTrue(ex.Message.Contains("PsCmdletAssert.IsAliasDefined"));
+                Assert.IsTrue(ex.Message.Contains("PsCmdletAssert2.IsAliasDefined"));
                 Assert.IsTrue(ex.Message.Contains(alias));
                 Assert.IsTrue(ex.Message.Contains(message));
 
@@ -111,7 +110,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             var value = "arbitrary-RequiredStringParameter-value";
             var parameters = string.Format(@"-RequiredStringParameter '{0}'", value);
 
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
@@ -120,25 +119,25 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is string);
             Assert.AreEqual(value, result);
 
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), result.GetType(), TestPsCmdletBehaviour2.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
         public void ParameterSetNameDefaultDefinesOutputTypeString()
         {
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(string), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), typeof(string), TestPsCmdletBehaviour2.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
         public void ParameterSetNameDefaultDefinesOutputTypeFloat()
         {
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(float), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), typeof(float), TestPsCmdletBehaviour2.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
         public void ParameterSetNameDefaultDefinesOutputTypeDouble()
         {
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(double), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), typeof(double), TestPsCmdletBehaviour2.ParametersSets.DEFAULT);
         }
 
         [TestMethod]
@@ -147,36 +146,36 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
         {
             try
             {
-                PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(int), TestPsCmdletBehaviour.ParametersSets.DEFAULT);
+                new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), typeof(int), TestPsCmdletBehaviour2.ParametersSets.DEFAULT);
             }
             catch (AssertFailedException ex)
             {
-                Assert.IsTrue(ex.Message.Contains("PsCmdletAssert.IsOutputType"));
+                Assert.IsTrue(ex.Message.Contains("PsCmdletAssert2.IsOutputType"));
                 Assert.IsTrue(ex.Message.Contains(typeof(int).FullName));
-                Assert.IsTrue(ex.Message.Contains(TestPsCmdletBehaviour.ParametersSets.DEFAULT));                
-                
+                Assert.IsTrue(ex.Message.Contains(TestPsCmdletBehaviour2.ParametersSets.DEFAULT));
+
                 throw;
             }
         }
-            
+
         [TestMethod]
         public void ParameterSetNameAllDefinesOutputTypeDouble()
         {
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(double));
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), typeof(double));
         }
-            
+
         [TestMethod]
         public void ParameterSetNameValueDefinesOutputTypeLong()
         {
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(long), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), typeof(long), TestPsCmdletBehaviour2.ParametersSets.VALUE);
         }
-            
+
         [TestMethod]
         public void ParameterSetNameValueDefinesOutputTypeFloat()
         {
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), typeof(float), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), typeof(float), TestPsCmdletBehaviour2.ParametersSets.VALUE);
         }
-            
+
         [TestMethod]
         [ExpectParameterBindingValidationException(MessagePattern = "RequiredIntParameter")]
         public void InvokeWithValue0ThrowsParameterBindingException()
@@ -184,35 +183,35 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             var value = 0;
             var parameters = string.Format(@"-RequiredIntParameter {0}", value);
 
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
         }
-            
+
         [TestMethod]
         public void InvokeWithValue1ReturnsInt()
         {
             var value = 1;
             var parameters = string.Format(@"-RequiredIntParameter {0}", value);
 
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
 
             var result = results[0].BaseObject;
             Assert.IsTrue(result is long);
-            Assert.AreEqual((long) value * 2, result);
+            Assert.AreEqual((long)value * 2, result);
 
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), result.GetType(), TestPsCmdletBehaviour2.ParametersSets.VALUE);
         }
-    
+
         [TestMethod]
-        [ExpectAssertFailedException(@"PsCmdletAssert.IsOutputType FAILED. ExpectedType 'System.String' not defined for ParameterSetName 'value'")]
+        [ExpectAssertFailedException(@"PsCmdletAssert2.HasOutputType FAILED. ExpectedType 'System.String' not defined for ParameterSetName 'value'")]
         public void InvokeWithValue8ReturnsString()
         {
             var value = 8;
             var parameters = string.Format(@"-RequiredIntParameter {0}", value);
 
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
@@ -221,27 +220,27 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             Assert.IsTrue(result is string);
             Assert.AreEqual(value.ToString(), result);
 
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), result.GetType(), TestPsCmdletBehaviour2.ParametersSets.VALUE);
         }
-    
+
         [TestMethod]
         public void InvokeWithValue15ReturnsLong()
         {
             var value = 15;
             var parameters = string.Format(@"-RequiredIntParameter {0}", value);
 
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
 
             var result = results[0].BaseObject;
             Assert.IsTrue(result is long);
-            Assert.AreEqual((long) value * 2, result);
+            Assert.AreEqual((long)value * 2, result);
 
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), result.GetType(), TestPsCmdletBehaviour2.ParametersSets.VALUE);
         }
-    
+
         [TestMethod]
         public void InvokeWithValue15ReturnsLongAndGeneratesErrorRecord()
         {
@@ -252,24 +251,24 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             {
                 Assert.AreEqual(1, errorRecords.Count);
                 var errorRecord = errorRecords[0];
-                Assert.AreEqual(value, (int) errorRecord.TargetObject);
+                Assert.AreEqual(value, (int)errorRecord.TargetObject);
                 Assert.IsInstanceOfType(errorRecord.Exception, typeof(ArgumentException));
-                
+
                 return;
             };
-            
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters, null, errorHandler);
+
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters, null, errorHandler);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
 
             var result = results[0].BaseObject;
             Assert.IsTrue(result is long);
-            Assert.AreEqual((long) value * 2, result);
+            Assert.AreEqual((long)value * 2, result);
 
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), result.GetType(), TestPsCmdletBehaviour2.ParametersSets.VALUE);
         }
-    
+
         [TestMethod]
         [ExpectedException(typeof(CmdletInvocationException))]
         public void InvokeWithValue42ThrowsCmdletInvocationException()
@@ -277,9 +276,9 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
             var value = 42;
             var parameters = string.Format(@"-RequiredIntParameter {0}", value);
 
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters);
         }
-    
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void InvokeWithValue42ThrowsArgumentException()
@@ -295,18 +294,18 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell.PSCmdlets
 
                 return exceptionThrown;
             };
-            
-            var results = PsCmdletAssert.Invoke(typeof(TestPsCmdletBehaviour), parameters, exceptionHandler);
+
+            var results = new PsCmdletAssert2().Invoke(typeof(TestPsCmdletBehaviour2), parameters, exceptionHandler);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
 
             var result = results[0].BaseObject;
             Assert.IsTrue(result is long);
-            Assert.AreEqual((long) value * 2, result);
+            Assert.AreEqual((long)value * 2, result);
 
-            PsCmdletAssert.HasOutputType(typeof(TestPsCmdletBehaviour), result.GetType(), TestPsCmdletBehaviour.ParametersSets.VALUE);
+            new PsCmdletAssert2().HasOutputType(typeof(TestPsCmdletBehaviour2), result.GetType(), TestPsCmdletBehaviour2.ParametersSets.VALUE);
         }
-    
+
     }
 }

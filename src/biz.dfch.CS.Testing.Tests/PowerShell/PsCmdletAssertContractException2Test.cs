@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-using System;
 using biz.dfch.CS.Testing.Attributes;
 using biz.dfch.CS.Testing.PowerShell;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace biz.dfch.CS.Testing.Tests.PowerShell
 {
-    [Obsolete("Use PsCmdletAssertContractException2Test instead.")]
     [TestClass]
-    public class PsCmdletAssertContractExceptionTest
+    public class PsCmdletAssertContractException2Test
     {
         [TestMethod]
         public void Invoke0ReturnsNull()
         {
             var parameters = "-Id 0;";
-            var results = PsCmdletAssert.Invoke(typeof(TestContractException), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestContractException), parameters);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
@@ -41,7 +39,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
         public void Invoke1Returns1()
         {
             var parameters = "-Id 1;";
-            var results = PsCmdletAssert.Invoke(typeof(TestContractException), parameters);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestContractException), parameters);
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
@@ -54,7 +52,7 @@ namespace biz.dfch.CS.Testing.Tests.PowerShell
         public void Invoke42ThrowsContractException()
         {
             var parameters = "-Id 42;";
-            var results = PsCmdletAssert.Invoke(typeof(TestContractException), parameters, ex => ex);
+            var results = new PsCmdletAssert2().Invoke(typeof(TestContractException), parameters, ex => ex);
 
             Assert.Fail("An exception should have been thrown before!");
         }
